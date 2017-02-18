@@ -2,38 +2,62 @@
 
 add_shortcode( 'buddyforms_easypin', 'buddyforms_easypin' );
 
-function buddyforms_easypin(){
+function buddyforms_easypin($shortcode_args){
 
-    ob_start(); ?>
-	<script>
+	extract( shortcode_atts( array(
+		'post_parent' => 0,
+	), $shortcode_args ) );
+
+	$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_parent ), "full");
+
+	ob_start(); ?>
+    <script>
         jQuery(document).ready(function () {
 
-            console.log(jquery_easypin_data);
-
-            var $instance = jQuery('.pin').easypin({
+            var $instance = jQuery('.buddyforms-pin').easypin({
+                init: '{"example_image11":{"0":{"content":"Captan America","coords":{"lat":"200","long":"189"}},"canvas":{"width":"auto","height":"auto"}}}',
+                modalWidth: 300,
+                limit: 1,
+                exceeded: function(element) {
+                    alert('You only able to create one pin at the time ;)');
+                },
+                responsive: true,
                 done: function(element) {
-                    return true;
+                },
+                popover: {
+                    show: true,
+                },
+                drop: function(x, y, element) {
+
+                },
+                drag: function(x, y, element) {
+                    easypin_get_corts(x, y, element);
                 }
             });
 
-	        // set the 'get.coordinates' event
+            $instance.easypinShow({
+                responsive: true
+            });
+
+            // set the 'get.coordinates' event
             $instance.easypin.event( "get.coordinates", function($instance, data, params ) {
-
-                console.log(data, params);
-
+                return data;
             });
 
-            jQuery( ".coords" ).click(function(e) {
+            function easypin_get_corts(x, y, element) {
                 $instance.easypin.fire( "get.coordinates", {param1: 1, param2: 2, param3: 3}, function(data) {
-                    return JSON.stringify(data);
+                    $cords = JSON.stringify(data);
                 });
-            });
+                jQuery('input[name="easypin"]').val($cords);
+                return false;
+            }
 
         });
+    </script>
+    <input name="easypin" type="hidden" value="">
 
-	</script>
-	<img src="https://ps.w.org/buddyforms/assets/screenshot-1.png?rev=1525886" class="pin" width="800" easypin-id="example_image1" />
-    <input class="coords" type="button" value="Get coordinates!" />
+    <img src="<?php echo $image[0]; ?>" class="buddyforms-pin" width="auto" easypin-id="example_image11" />
+    <a href="#" class="coords" >Get coordinates!</a>
 	<div class="easy-modal" style="display:none;" modal-position="free">
 		<form>
 			type something: <input name="content" type="text">

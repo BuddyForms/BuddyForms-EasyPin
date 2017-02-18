@@ -133,15 +133,6 @@ class BuddyForms_EasyPin {
 		wp_enqueue_script( 'jquery-effects-core' );
 		wp_enqueue_script( 'jquery-easypin', plugins_url( 'assets/resources/jquery-easypin/dist/jquery.easypin.min.js', __FILE__ ), array( 'jquery' ) );
 
-
-//		wp_enqueue_script( 'jquery-ui-core' );
-//		wp_enqueue_script( 'jquery-ui-widget' );
-//		wp_enqueue_script( 'jquery-effects-core' );
-//		wp_enqueue_script( 'jquery-droppin', plugins_url( 'assets/resources/droppin/droppin.min.js', __FILE__ ), array( 'jquery' ), '1.7.2' );
-
-
-
-
 		$script_data = array(
 			'image_path' => BUDDYFORMS_EASYPIN_PLUGIN_URL . 'assets/images/'
 		);

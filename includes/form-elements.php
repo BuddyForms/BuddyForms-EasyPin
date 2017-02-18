@@ -56,7 +56,7 @@ add_filter( 'buddyforms_form_element_add_field', 'buddyforms_easypin_create_new_
  *
  */
 function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
-	global $buddyforms, $post, $wp_query;
+	global $wp_query;
 
 	extract( $form_args );
 
@@ -67,85 +67,13 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 	switch ( $customfield['type'] ) {
 		case 'easypin':
 
-
-
 			if( !isset($wp_query->query_vars['bf_parent_post_id']) ) {
 				return;
 			}
-
-//			$post_parent = wp_get_post_parent_id( $post_id );
 			$post_parent = $wp_query->query_vars['bf_parent_post_id'];
-
-
-
-			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_parent ), "full");
-
-
-?>
-            <div style="display:none;" easypin-tpl>
-                <popover>
-                    <div style="width:140px;height:auto;background-color:orange;">
-                        {[content]}
-                    </div>
-                </popover>
-
-                <marker>
-                    <div style="border:solid 1px #000;width:20px;height:20px;background-color:red;">&nbsp;</div>
-                </marker>
-            </div>
-
-            <?php
-
-
-            ob_start(); ?>
-            <script>
-                jQuery(document).ready(function () {
-
-                    var $instance = jQuery('.buddyforms-pin').easypin({
-                        limit: 1,
-                        responsive: true,
-                        popover: {
-                            show: true,
-                        },
-                        drop: function(x, y, element) {
-                        }
-                    });
-
-                    $instance.easypinShow();
-
-                    // set the 'get.coordinates' event
-                    $instance.easypin.event( "get.coordinates", function($instance, data, params ) {
-
-                        console.log(data, params);
-
-                    });
-
-                    jQuery( ".coords" ).click(function(e) {
-                        alert('langsam');
-                        console.log(e);
-                        $instance.easypin.fire( "get.coordinates", {param1: 1, param2: 2, param3: 3}, function(data) {
-                            return JSON.stringify(data);
-                        });
-                    });
-
-                });
-            </script>
-            <img src="<?php echo $image[0]; ?>" class="buddyforms-pin" width="auto" easypin-id="example_image11" />
-            <input class="coords" type="button" value="Get coordinates!" />
-
-            <?php
-            $easypin = ob_get_clean();
-
-
-            $form->addElement( new Element_HTML( $easypin ) );
-//				$form->addElement( new Element_HTML(  get_the_post_thumbnail( $post_parent, 'full', array( 'class' => 'alignleft' ) ) ) );
-//				$form->addElement( new Element_HTML( do_shortcode('[buddyforms_easypin]')));
-
-
-
-
-
-			break;
+			?> <input class="coords" type="button" value="Get coordinates!" /> <?php
+            $form->addElement( new Element_HTML( do_shortcode('[buddyforms_easypin post_parent="' . $post_parent . '"]')));
+            break;
 	}
 
 	return $form;
