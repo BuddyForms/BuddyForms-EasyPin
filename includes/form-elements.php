@@ -67,11 +67,10 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 	switch ( $customfield['type'] ) {
 		case 'easypin':
 
-			if( !isset($wp_query->query_vars['bf_parent_post_id']) ) {
+			if( !(isset($wp_query->query_vars['bf_parent_post_id']) || $post_id > 0 ) ) {
 				return;
 			}
-			$post_parent = $wp_query->query_vars['bf_parent_post_id'];
-			?> <input class="coords" type="button" value="Get coordinates!" /> <?php
+			$post_parent = isset($wp_query->query_vars['bf_parent_post_id']) ? $wp_query->query_vars['bf_parent_post_id'] : $post_id;
             $form->addElement( new Element_HTML( do_shortcode('[buddyforms_easypin post_parent="' . $post_parent . '"]')));
             break;
 	}

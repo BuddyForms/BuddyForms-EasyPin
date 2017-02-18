@@ -111,6 +111,7 @@ class BuddyForms_EasyPin {
 	public function includes() {
 
 		require_once( BUDDYFORMS_EASYPIN_INCLUDES_PATH . 'shortcodes.php' );
+		require_once( BUDDYFORMS_EASYPIN_INCLUDES_PATH . 'functions.php' );
 		require_once( BUDDYFORMS_EASYPIN_INCLUDES_PATH . 'form-elements.php' );
 
 		if ( is_admin() ) {
@@ -132,6 +133,8 @@ class BuddyForms_EasyPin {
 	public function front_js(){
 		wp_enqueue_script( 'jquery-effects-core' );
 		wp_enqueue_script( 'jquery-easypin', plugins_url( 'assets/resources/jquery-easypin/dist/jquery.easypin.min.js', __FILE__ ), array( 'jquery' ) );
+
+		wp_enqueue_style('easypin-css', plugins_url( 'assets/css/easypin.css', __FILE__ ) );
 
 		$script_data = array(
 			'image_path' => BUDDYFORMS_EASYPIN_PLUGIN_URL . 'assets/images/'
