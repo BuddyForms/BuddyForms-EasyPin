@@ -312,7 +312,7 @@
             // set the marker content
             $(markerContainer).on('click', '.easy-edit', function(e) {
                 // creates popup and return instance
-                var modalInstance = createPopup(e, markerContainer);
+                //var modalInstance = createPopup(e, markerContainer);
 
                 // data set to input fields
                 setDataToFields(parentId, markerIndex, modalInstance);
@@ -473,7 +473,7 @@
 
         var tools = $('<div/>', {'class': 'easy-tools'})
             .css({
-                'width': setPx(depends.markerWidth),
+                'width': '32px',
                 'height': '10px',
                 'position': 'absolute',
                 'background-color': '#868585',
@@ -482,32 +482,11 @@
                 'opacity': '0'
 
             })
-            .append(function() { // edit button create
-                return $('<a/>', {'class': 'easy-edit'})
-                    .css({
-                        'display': 'inline-block',
-                        'width': setPx(depends.markerWidth/2),
-                        'height': '10px',
-                        'position': 'absolute',
-                        'left': '0px',
-                        'background-image': 'url('+$.fn.easypin.defaults.editSrc+')',
-                        'background-repeat': 'no-repeat',
-                        'background-size': '8px',
-                        'background-position-y': '1px',
-                        'background-position-x': '3px'
-                    }).hover(function() {
-                        $(this)
-                            .css('background-color', 'black')
-                            .css('opacity', '.6');
-                    },function() {
-                        $(this).css('background-color', 'inherit');
-                    });
-            })
             .append(function() { // delete button
                 return $('<a/>', {'class': 'easy-delete'})
                     .css({
                         'display': 'inline-block',
-                        'width': setPx(depends.markerWidth/2),
+                        'width': '32px',
                         'height': '10px',
                         'position': 'absolute',
                         'right': '0px',
@@ -515,7 +494,7 @@
                         'background-repeat': 'no-repeat',
                         'background-size': '8px',
                         'background-position-y': '1px',
-                        'background-position-x': '3px'
+                        'background-position-x': '13px'
                     }).hover(function() {
                         $(this)
                             .css('background-color', 'black')
