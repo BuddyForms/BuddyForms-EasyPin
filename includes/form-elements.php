@@ -70,7 +70,9 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 			if( !(isset($wp_query->query_vars['bf_parent_post_id']) || $post_id > 0 ) ) {
 				return;
 			}
-			$post_parent = isset($wp_query->query_vars['bf_parent_post_id']) ? $wp_query->query_vars['bf_parent_post_id'] : $post_id;
+
+			$post_parent = isset($wp_query->query_vars['bf_parent_post_id']) ? $wp_query->query_vars['bf_parent_post_id'] : get_post($post_id)->post_parent;
+
             $form->addElement( new Element_HTML( do_shortcode('[buddyforms_easypin post_parent="' . $post_parent . '"]')));
             break;
 	}
