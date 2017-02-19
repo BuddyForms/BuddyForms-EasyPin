@@ -50,13 +50,17 @@ function buddyforms_easypin_display_image( $content ) {
 	    foreach($cords as $post_id => $cort){
 
 
+	        $post_id = $cort['post_id'];
+
+	        $post = get_post($post_id);
+
 		    $h =  $cort['h'];
 		    $w =  $cort['w'];
 
 		    $data .= '"' . $i . '":{';
-		    $data .= '"name":"Pierre Cardin",';
-		    $data .= '"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",';
-		    $data .= '"price":"$67",';
+		    $data .= '"name":"' . $post->post_title . '",';
+		    $data .= '"description":"' . $post->post_content . '",';
+		    $data .= '"permalink":"' . get_the_permalink($post_id) . '",';
 		    $data .= '"coords":{';
 		    $data .= '"lat":"' . $cort['y'] . '",';
 		    $data .= '"long":"' . $cort['x'] . '"}},';
@@ -93,14 +97,9 @@ function buddyforms_easypin_display_image( $content ) {
                     <div class="popHeadLine"></div>
                     <div class="popContentLeft">
                         {[description]}
-                        <br>
-                        <br>
-                        <a href="#">Buy</a>
-                        &nbsp;
-                        &nbsp;
-                        <a href="#">More info</a>
+                        <br><br><br>
+                        <a href="{[permalink]}">More info</a>
                     </div>
-                    <div class="popContentRight">{[price]}</div>
                 </div>
             </div>
         </popover>
@@ -114,7 +113,7 @@ function buddyforms_easypin_display_image( $content ) {
             jQuery('.pin').easypinShow({
 
                 data:'<?php echo $data ?>',
-                responsive: false,
+                responsive: true,
                 variables: {
                     firstname: function (canvas_id, pin_id, data) {
                         //console.log(canvas_id, pin_id, data);

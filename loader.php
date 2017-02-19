@@ -132,7 +132,7 @@ class BuddyForms_EasyPin {
 
 	public function front_js(){
 		wp_enqueue_script( 'jquery-effects-core' );
-		wp_enqueue_script( 'jquery-easypin', plugins_url( 'assets/resources/jquery-easypin/dist/jquery.easypin.js', __FILE__ ), array( 'jquery' ) );
+		wp_enqueue_script( 'jquery-easypin', plugins_url( 'assets/resources/jquery-easypin/dist/jquery.easypin.min.js', __FILE__ ), array( 'jquery' ) );
 
 		wp_enqueue_style('easypin-css', plugins_url( 'assets/css/easypin.css', __FILE__ ) );
 

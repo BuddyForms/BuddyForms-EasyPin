@@ -51,9 +51,14 @@ function buddyforms_easypin($shortcode_args){
                 }
             });
 
-            $instance.easypinShow({
-                responsive: true
+            jQuery('.buddyforms-pin').easypinShow({
+                resonsive: true,
+	            <?php if( isset($easypin_post['lat']) ){ ?>
+                data: '{"<?php echo $post_parent ?>":{"0":{"coords":{"lat":"<?php echo $easypin_post['lat'] ?>","long":"<?php echo $easypin_post['long'] ?>"}},"canvas":{"src":"img/2011-12-18-23.51.12.jpg","width":"<?php echo $easypin_post['width'] ?>","height":"<?php echo $easypin_post['height'] ?>"}}}'
+	            <?php } ?>
+
             });
+
             jQuery(".pinCanvas").remove();
             jQuery(".popover").remove();
 
