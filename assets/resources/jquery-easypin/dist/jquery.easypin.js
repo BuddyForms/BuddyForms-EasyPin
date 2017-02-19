@@ -1711,10 +1711,6 @@
             .css({
                 width: 0,
             	height: 0,
-            	'border-left': '10px solid transparent',
-            	'border-right': '10px solid transparent',
-            	'border-top': '10px solid #000',
-                'opacity': '.8',
                 position: 'absolute',
                 bottom: '-50px',
                 left: '58px'

@@ -15,23 +15,22 @@ function buddyforms_easypin($shortcode_args){
         jQuery(document).ready(function () {
 
             var $instance = jQuery('.buddyforms-pin').easypin({
-                init: '{"example_image11":{"0":{"content":"Captan America","coords":{"lat":"200","long":"189"}},"canvas":{"width":"auto","height":"auto"}}}',
-                modalWidth: 300,
+//                init: '{"example_image11":{"0":{"coords":{"lat":"200","long":"189"}},"canvas":{"width":"auto","height":"auto"}}}',
                 limit: 1,
                 exceeded: function(element) {
                     alert('You only able to create one pin at the time ;)');
                 },
                 responsive: true,
-                done: function(element) {
-                },
                 popover: {
                     show: true,
                 },
                 drop: function(x, y, element) {
-
+                    console.log(x, y);
+                    console.log(element);
                 },
                 drag: function(x, y, element) {
-                    easypin_get_corts(x, y, element);
+                    console.log(x, y);
+                    easypin_get_corts(x, y);
                 }
             });
 
@@ -44,8 +43,8 @@ function buddyforms_easypin($shortcode_args){
                 return data;
             });
 
-            function easypin_get_corts(x, y, element) {
-                $instance.easypin.fire( "get.coordinates", {param1: 1, param2: 2, param3: 3}, function(data) {
+            function easypin_get_corts(x, y) {
+                $instance.easypin.fire( "get.coordinates", {param1: 1, param2: 2}, function(data) {
                     $cords = JSON.stringify(data);
                 });
                 jQuery('input[name="easypin"]').val($cords);
@@ -57,16 +56,7 @@ function buddyforms_easypin($shortcode_args){
     <input name="easypin" type="hidden" value="">
 
     <img src="<?php echo $image[0]; ?>" class="buddyforms-pin" width="auto" easypin-id="example_image11" />
-    <a href="#" class="coords" >Get coordinates!</a>
-	<div class="easy-modal" style="display:none;" modal-position="free">
-		<form>
-			type something: <input name="content" type="text">
-			<input type="button" value="save pin!" class="easy-submit">
-		</form>
-	</div>
-	<div style="display:none;" width="130" shadow="true" popover>
-		<div style="width:100%;text-align:center;">{[content]}</div>
-	</div>
+	<div style="display:none;" popover></div>
 	<?php
     $easypin = ob_get_clean();
 	return $easypin;

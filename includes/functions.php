@@ -38,9 +38,6 @@ function buddyforms_easypin_display_image( $content ) {
             <div style="position: relative; height: 100%;">
                 <img src="<?php echo $image[0] ?>" class="pin" width="1000" easypin-id="demo_image_1"
                      style="opacity: 1; position: relative;"></div>
-            <div class="marker2 element-animation easypin-marker"
-                 style="position: absolute; cursor: pointer; left: 80%; top: 36.48%; opacity: 0.9; z-index: 0;">
-            </div>
         </div>
     </div>
     <div style="display:none;" easypin-tpl="">
@@ -48,7 +45,7 @@ function buddyforms_easypin_display_image( $content ) {
             <div class="exPopoverContainer">
                 <div class="popBg borderRadius"></div>
                 <div class="popBody">
-                    <div class="arrow-down" style="top: 170px;left: 13px;"></div>
+                    <div class="arrow-down" style="top: 150px;left: 13px;"></div>
                     <h1>{[name]}</h1>
                     <div class="popHeadLine"></div>
                     <div class="popContentLeft">
@@ -66,7 +63,7 @@ function buddyforms_easypin_display_image( $content ) {
         </popover>
 
         <marker>
-            <div class="marker2 element-animation">
+            <div class="marker2">
                 +
             </div>
         </marker>
