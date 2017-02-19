@@ -30,29 +30,46 @@ function buddyforms_easypin_display_image( $content ) {
 	$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
 	$image = wp_get_attachment_image_src( $thumbnail_id, "full" );
 
-
-
 	$buddyforms_easypin_image = get_post_meta( $thumbnail_id, 'buddyforms_easypin_image', true );
 
-
 	echo '<pre>';
-	print_r($buddyforms_easypin_image[get_the_ID()]);
+    print_r($buddyforms_easypin_image);
 	echo '</pre>';
+
 
 	if( isset( $buddyforms_easypin_image[get_the_ID()] ) && is_array( $buddyforms_easypin_image[get_the_ID()] ) ) {
 		$cords = $buddyforms_easypin_image[get_the_ID()];
 
-		$cords_str = '';
+
+		$data = '{"demo_image_1":{';
+
+		$h = 'auto';
+		$w = 'auto';
+
+		$i = 0;
 	    foreach($cords as $post_id => $cort){
 
 
+		    $h =  $cort['h'];
+		    $w =  $cort['w'];
 
+		    $data .= '"' . $i . '":{';
+		    $data .= '"name":"Pierre Cardin",';
+		    $data .= '"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",';
+		    $data .= '"price":"$67",';
+		    $data .= '"coords":{';
+		    $data .= '"lat":"' . $cort['y'] . '",';
+		    $data .= '"long":"' . $cort['x'] . '"}},';
 
-
-
-
-		    $cords_str = '';
+		    $i++;
         }
+
+		$data .= '"canvas":{';
+		$data .= '"width":"' . $w . '",';
+		$data .= '"height":"' . $h . '"';
+		$data .= '}}';
+		$data .= '}';
+
 
 	}
 
@@ -62,8 +79,8 @@ function buddyforms_easypin_display_image( $content ) {
     <div>
         <div class="easypin" style="width: auto; height: auto;">
             <div style="position: relative; height: 100%;">
-                <img src="<?php echo $image[0] ?>" class="pin" width="1000" easypin-id="demo_image_1"
-                     style="opacity: 1; position: relative;"></div>
+                <img src="<?php echo $image[0] ?>" class="pin" easypin-id="demo_image_1"
+                     style="opacity: 1;"></div>
         </div>
     </div>
     <div style="display:none;" easypin-tpl="">
@@ -96,32 +113,7 @@ function buddyforms_easypin_display_image( $content ) {
         jQuery(document).ready(function () {
             jQuery('.pin').easypinShow({
 
-
-
-
-                data: '{' +
-                    '"demo_image_1":{' +
-                        '"0":{' +
-                            '"name":"Pierre Cardin",' +
-                            '"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",' +
-                            '"price":"$67",' +
-                            '"coords":{' +
-                                '"lat":"800",' +
-                                '"long":"228"}},' +
-                        '"1":{' +
-                            '"name":"Pierre Cardin",' +
-                            '"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",' +
-                            '"price":"$98",' +
-                            '"coords":{' +
-                                '"lat":"597",' +
-                                '"long":"357"}},' +
-                        '"canvas":{' +
-                            '"width":"1000",' +
-                            '"height":"625"' +
-                        '}' +
-                    '}' +
-                '}',
-//                data: '{"demo_image_1":{"0":{"coords":{"lat":"800","long":"189"}},"canvas":{"width":"auto","height":"auto"}}}',
+                data:'<?php echo $data ?>',
                 responsive: false,
                 variables: {
                     firstname: function (canvas_id, pin_id, data) {

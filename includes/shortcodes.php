@@ -23,38 +23,43 @@ function buddyforms_easypin($shortcode_args){
     <script>
         jQuery(document).ready(function () {
 
+
+
             var $instance = jQuery('.buddyforms-pin').easypin({
-
-                <?php if( isset($easypin_post['x']) ){ ?>
-                    init: '{"<?php echo $post_parent ?>":{"0":{"coords":{"lat":"<?php echo $easypin_post['x'] ?>","long":"<?php echo $easypin_post['y'] ?>"}},"canvas":{"width":"<?php echo $easypin_post['w'] ?>","height":"<?php echo $easypin_post['h'] ?>"}}}',
+                <?php if( isset($easypin_post['lat']) ){ ?>
+                init: '{"<?php echo $post_parent ?>":{"0":{"coords":{"lat":"<?php echo $easypin_post['lat'] ?>","long":"<?php echo $easypin_post['long'] ?>"}},"canvas":{"src":"img/2011-12-18-23.51.12.jpg","width":"<?php echo $easypin_post['width'] ?>","height":"<?php echo $easypin_post['height'] ?>"}}}',
                 <?php } ?>
-
                 limit: 1,
                 exceeded: function(element) {
                     alert('You only able to create one pin at the time ;)');
                 },
-                responsive: true,
+                responsive: false,
                 popover: {
                     show: true,
                 },
-                drop: function(x, y, element) {
-                    easypin_set_corts(x, y);
+                drop: function(long, lat, element) {
+                    console.log(long, lat);
+                    easypin_set_corts(long, lat);
                     jQuery(".pinCanvas").remove();
+                    jQuery(".popover").remove();
+
                 },
-                drag: function(x, y, element) {
-                    easypin_set_corts(x, y);
+                drag: function(long, lat, element) {
+                    easypin_set_corts(long, lat);
                     jQuery(".pinCanvas").remove();
-                },
-                success: function() {
-                    alert('ende');
+                    jQuery(".popover").remove();
                 }
             });
 
             $instance.easypinShow({
                 responsive: true
             });
+            jQuery(".pinCanvas").remove();
+            jQuery(".popover").remove();
 
-            function easypin_set_corts(x, y) {
+            function easypin_set_corts(long, lat) {
+
+                console.log('long ' + long, 'lat ' + lat);
 
                 var image = jQuery('.buddyforms-pin');
                 var ep_id = image.attr('easypin-id');
@@ -62,13 +67,13 @@ function buddyforms_easypin($shortcode_args){
                 var width  = image.width();
                 var height = image.height();
 
-                console.log('{"' + ep_id + '":{"0":{"coords":{"lat":"' + x + '","long":"' + y + '"}},"canvas":{"width":"' + width + '","height":"' + height + '"}}}');
+                console.log('{"' + ep_id + '":{"0":{"coords":{"lat":"' + lat + '","long":"' + long + '"}},"canvas":{"width":"' + width + '","height":"' + height + '"}}}');
 
                 jQuery('input[name="easypin-id"]').val(ep_id);
-                jQuery('input[name="easypin-x"]').val(x);
-                jQuery('input[name="easypin-y"]').val(y);
-                jQuery('input[name="easypin-w"]').val(width);
-                jQuery('input[name="easypin-h"]').val(height);
+                jQuery('input[name="easypin-long"]').val(long);
+                jQuery('input[name="easypin-lat"]').val(lat);
+                jQuery('input[name="easypin-width"]').val(width);
+                jQuery('input[name="easypin-height"]').val(height);
 
                 return false;
             }
@@ -76,10 +81,10 @@ function buddyforms_easypin($shortcode_args){
             jQuery(document).on('click', '.easy-delete', function () {
 
                 jQuery('input[name="easypin-id"]').val('');
-                jQuery('input[name="easypin-x"]').val('');
-                jQuery('input[name="easypin-y"]').val('');
-                jQuery('input[name="easypin-w"]').val('');
-                jQuery('input[name="easypin-h"]').val('');
+                jQuery('input[name="easypin-long"]').val('');
+                jQuery('input[name="easypin-lat"]').val('');
+                jQuery('input[name="easypin-width"]').val('');
+                jQuery('input[name="easypin-height"]').val('');
 
             });
 
@@ -87,10 +92,10 @@ function buddyforms_easypin($shortcode_args){
     </script>
 
     <input name="easypin-id" type="hidden" value="">
-    <input name="easypin-x" type="hidden" value="">
-    <input name="easypin-y" type="hidden" value="">
-    <input name="easypin-w" type="hidden" value="">
-    <input name="easypin-h" type="hidden" value="">
+    <input name="easypin-long" type="hidden" value="">
+    <input name="easypin-lat" type="hidden" value="">
+    <input name="easypin-width" type="hidden" value="">
+    <input name="easypin-height" type="hidden" value="">
 
     <img src="<?php echo $image[0]; ?>" class="buddyforms-pin" width="auto" easypin-id="<?php echo $post_parent ?>" />
 	<div style="display:none;" popover></div>

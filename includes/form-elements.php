@@ -91,10 +91,10 @@ function buddyforms_easypin_after_save_post( $post_id ) {
 	}
 
 	$buddyforms_easypin_post['parent_id'] = $_POST['easypin-id'];
-	$buddyforms_easypin_post['x'] = isset( $_POST['easypin-x'] ) ? $_POST['easypin-x'] : 0 ;
-	$buddyforms_easypin_post['y'] = isset( $_POST['easypin-y'] ) ? $_POST['easypin-y'] : 0 ;
-	$buddyforms_easypin_post['w'] = isset( $_POST['easypin-w'] ) ? $_POST['easypin-w'] : 'auto';
-	$buddyforms_easypin_post['h'] = isset( $_POST['easypin-h'] ) ? $_POST['easypin-h'] : 'auto';
+	$buddyforms_easypin_post['long'] = isset( $_POST['easypin-long'] ) ? $_POST['easypin-long'] : 0 ;
+	$buddyforms_easypin_post['lat'] = isset( $_POST['easypin-lat'] ) ? $_POST['easypin-lat'] : 0 ;
+	$buddyforms_easypin_post['width'] = isset( $_POST['easypin-width'] ) ? $_POST['easypin-width'] : 'auto';
+	$buddyforms_easypin_post['height'] = isset( $_POST['easypin-height'] ) ? $_POST['easypin-height'] : 'auto';
 
 	// Save the coordinates in the post for the edit screen
 	update_post_meta( $post_id, 'buddyforms_easypin_post', $buddyforms_easypin_post );
@@ -107,10 +107,10 @@ function buddyforms_easypin_after_save_post( $post_id ) {
 	$post_parent = $_POST['easypin-id'];
 
 	$buddyforms_easypin_image[$post_parent][$post_id]['post_id'] =  $post_id;
-	$buddyforms_easypin_image[$post_parent][$post_id]['x'] = isset( $_POST['easypin-x'] ) ? $_POST['easypin-x'] : 0 ;
-	$buddyforms_easypin_image[$post_parent][$post_id]['y'] = isset( $_POST['easypin-y'] ) ? $_POST['easypin-y'] : 0 ;
-	$buddyforms_easypin_image[$post_parent][$post_id]['w'] = isset( $_POST['easypin-w'] ) ? $_POST['easypin-w'] : 'auto';
-	$buddyforms_easypin_image[$post_parent][$post_id]['h'] = isset( $_POST['easypin-h'] ) ? $_POST['easypin-h'] : 'auto';
+	$buddyforms_easypin_image[$post_parent][$post_id]['long'] = isset( $_POST['easypin-long'] ) ? $_POST['easypin-long'] : 0 ;
+	$buddyforms_easypin_image[$post_parent][$post_id]['lat'] = isset( $_POST['easypin-lat'] ) ? $_POST['easypin-lat'] : 0 ;
+	$buddyforms_easypin_image[$post_parent][$post_id]['width'] = isset( $_POST['easypin-width'] ) ? $_POST['easypin-width'] : 'auto';
+	$buddyforms_easypin_image[$post_parent][$post_id]['height'] = isset( $_POST['easypin-height'] ) ? $_POST['easypin-height'] : 'auto';
 
 	update_post_meta( $thumbnail_id,'buddyforms_easypin_image', $buddyforms_easypin_image );
 
