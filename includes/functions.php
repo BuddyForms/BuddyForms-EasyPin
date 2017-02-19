@@ -27,8 +27,34 @@ function buddyforms_easypin_display_image( $content ) {
 		return $content;
 	}
 
+	$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
+	$image = wp_get_attachment_image_src( $thumbnail_id, "full" );
 
-	$image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), "full" );
+
+
+	$buddyforms_easypin_image = get_post_meta( $thumbnail_id, 'buddyforms_easypin_image', true );
+
+
+	echo '<pre>';
+	print_r($buddyforms_easypin_image[get_the_ID()]);
+	echo '</pre>';
+
+	if( isset( $buddyforms_easypin_image[get_the_ID()] ) && is_array( $buddyforms_easypin_image[get_the_ID()] ) ) {
+		$cords = $buddyforms_easypin_image[get_the_ID()];
+
+		$cords_str = '';
+	    foreach($cords as $post_id => $cort){
+
+
+
+
+
+
+
+		    $cords_str = '';
+        }
+
+	}
 
 	ob_start();
 	?>
@@ -63,15 +89,39 @@ function buddyforms_easypin_display_image( $content ) {
         </popover>
 
         <marker>
-            <div class="marker2">
-                +
-            </div>
+            <div class="marker2">+</div>
         </marker>
     </div>
     <script type="text/javascript">
         jQuery(document).ready(function () {
             jQuery('.pin').easypinShow({
-                data: '{"demo_image_1":{"0":{"name":"Pierre Cardin","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ","price":"$67","coords":{"lat":"800","long":"228"}},"1":{"name":"Pierre Cardin","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ","price":"$98","coords":{"lat":"597","long":"357"}},"2":{"name":"Pierre Cardin","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ","price":"$100","coords":{"lat":"241","long":"352"}},"3":{"name":"Pierre Cardin","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ","price":"$54","coords":{"lat":"365","long":"283"}},"4":{"name":"Sweater","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ","price":"$32","coords":{"lat":"713","long":"276"}},"5":{"name":"Pierre Cardin","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ","price":"$123","coords":{"lat":"771","long":"510"}},"6":{"name":"Pierre Cardin","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ","price":"$54","coords":{"lat":"496","long":"277"}},"canvas":{"src":"img/fashion-trends.jpg","width":"1000","height":"625"}}}',
+
+
+
+
+                data: '{' +
+                    '"demo_image_1":{' +
+                        '"0":{' +
+                            '"name":"Pierre Cardin",' +
+                            '"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",' +
+                            '"price":"$67",' +
+                            '"coords":{' +
+                                '"lat":"800",' +
+                                '"long":"228"}},' +
+                        '"1":{' +
+                            '"name":"Pierre Cardin",' +
+                            '"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",' +
+                            '"price":"$98",' +
+                            '"coords":{' +
+                                '"lat":"597",' +
+                                '"long":"357"}},' +
+                        '"canvas":{' +
+                            '"width":"1000",' +
+                            '"height":"625"' +
+                        '}' +
+                    '}' +
+                '}',
+//                data: '{"demo_image_1":{"0":{"coords":{"lat":"800","long":"189"}},"canvas":{"width":"auto","height":"auto"}}}',
                 responsive: false,
                 variables: {
                     firstname: function (canvas_id, pin_id, data) {
