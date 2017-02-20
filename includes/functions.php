@@ -38,39 +38,40 @@ function buddyforms_easypin_display_image( $content ) {
 
 
 	if( isset( $buddyforms_easypin_image[get_the_ID()] ) && is_array( $buddyforms_easypin_image[get_the_ID()] ) ) {
+
+
 		$cords = $buddyforms_easypin_image[get_the_ID()];
 
 
 		$data = '{"demo_image_1":{';
 
-		$h = 'auto';
-		$w = 'auto';
+		$height = 'auto';
+		$width = 'auto';
 
 		$i = 0;
 	    foreach($cords as $post_id => $cort){
 
-
 	        $post_id = $cort['post_id'];
 
-	        $post = get_post($post_id);
+	        $pin_post = get_post($post_id);
 
-		    $h =  $cort['h'];
-		    $w =  $cort['w'];
+		    $height =  $cort['height'];
+		    $width =  $cort['width'];
 
 		    $data .= '"' . $i . '":{';
-		    $data .= '"name":"' . $post->post_title . '",';
-		    $data .= '"description":"' . $post->post_content . '",';
+		    $data .= '"name":"' . $pin_post->post_title . '",';
+		    $data .= '"description":"' . $pin_post->post_content . '",';
 		    $data .= '"permalink":"' . get_the_permalink($post_id) . '",';
 		    $data .= '"coords":{';
-		    $data .= '"lat":"' . $cort['y'] . '",';
-		    $data .= '"long":"' . $cort['x'] . '"}},';
+		    $data .= '"lat":"' . $cort['lat'] . '",';
+		    $data .= '"long":"' . $cort['long'] . '"}},';
 
 		    $i++;
         }
 
 		$data .= '"canvas":{';
-		$data .= '"width":"' . $w . '",';
-		$data .= '"height":"' . $h . '"';
+		$data .= '"width":"' . $width . '",';
+		$data .= '"height":"' . $height . '"';
 		$data .= '}}';
 		$data .= '}';
 
