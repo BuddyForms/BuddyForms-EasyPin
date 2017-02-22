@@ -21,6 +21,7 @@ function buddyforms_easypin($shortcode_args){
 
 	ob_start(); ?>
     <script>
+
         jQuery(document).ready(function () {
 
 
@@ -37,13 +38,13 @@ function buddyforms_easypin($shortcode_args){
                 popover: {
                     show: true,
                 },
-                drop: function(long, lat, element) {
-                    console.log(long, lat);
-                    easypin_set_corts(long, lat);
+                drop: function(lat, long, element) {
+                    console.log(lat, long);
+                    easypin_set_corts(lat, long);
 
                 },
-                drag: function(long, lat, element) {
-                    easypin_set_corts(long, lat);
+                drag: function(lat, long, element) {
+                    easypin_set_corts(lat, long);
                 }
             });
 
@@ -58,9 +59,9 @@ function buddyforms_easypin($shortcode_args){
             jQuery(".pinCanvas").remove();
             jQuery(".popover").remove();
 
-            function easypin_set_corts(long, lat) {
+            function easypin_set_corts(lat, long) {
 
-                console.log('long ' + long, 'lat ' + lat);
+                console.log('lat ' + lat, 'long ' + long);
 
                 var image = jQuery('.buddyforms-pin');
                 var ep_id = image.attr('easypin-id');
@@ -90,6 +91,7 @@ function buddyforms_easypin($shortcode_args){
             });
 
         });
+        
     </script>
 
     <input name="easypin-id" type="hidden" value="">

@@ -50,6 +50,9 @@
         			var imageWidth = $(this).width();
         			var imageHeight = $(this).height();
 
+                    $.fn.easypin.defaults.altImgWidth = imageWidth;
+                    $.fn.easypin.defaults.altImgHeight = imageHeight;
+
         			if(imageHeight > 0) {
 
             			// create parent element and add than target image after
@@ -283,8 +286,8 @@
             .css('top', setPx(depends.markerBorderY-15))
             .css('width', depends.markerWidth)
             .css('height', depends.markerHeight)
-            // .css('margin-left', setPx(depends.marginLeft))
-            // .css('margin-top', setPx(depends.marginTop))
+            .css('margin-left', setPx(depends.marginLeft))
+            .css('margin-top', setPx(depends.marginTop))
             .css('position', 'absolute')
             .css('opacity', 0)
             .css('z-index', depends.markerContainerZindex+10)
@@ -992,7 +995,9 @@
 		hoverLayerZindex: 3,
 		markerContainerZindex: 4,
 		markerBorderColor: '#FFFF00',
-		downPoint: 10
+		downPoint: 10,
+        altImgWidth: 0,
+        altImgHeight: 0
 
 	};
 
@@ -1869,6 +1874,15 @@
 
                 var imageWidth = parseInt(initData[imgIndex].canvas.width);
                 var imageHeight = parseInt(initData[imgIndex].canvas.height);
+
+                if (isNaN(imageWidth)){
+                    imageWidth = $.fn.easypin.defaults.altImgWidth;
+                }
+
+                if (isNaN(imageHeight)){
+                    imageHeight = $.fn.easypin.defaults.altImgHeight    ;
+                }
+
                 var lat = parseInt(initData[imgIndex][i].coords.lat);
                 var long = parseInt(initData[imgIndex][i].coords.long);
                 // set cursor position coordinate
@@ -1899,8 +1913,8 @@
                     markerBorderY = imageHeight-config.markerHeight;
                 }
 
-                var absX = markerBorderX.toFixed(3)-markerWidthHalf;
-                var absY = markerBorderY.toFixed(3)-markerHeightHalf;
+                var absX = clickPosX;
+                var absY = clickPosY;
 
                 // create tool
                 var tools = createTools({
