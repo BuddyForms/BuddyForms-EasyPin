@@ -67,11 +67,9 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 	switch ( $customfield['type'] ) {
 		case 'easypin':
 
-			if( !(isset($wp_query->query_vars['bf_parent_post_id']) || $post_id > 0 ) ) {
-				return;
+			if($post_parent == 0){
+				return $form;
 			}
-
-			$post_parent = isset($wp_query->query_vars['bf_parent_post_id']) ? $wp_query->query_vars['bf_parent_post_id'] : get_post($post_id)->post_parent;
 
             $form->addElement( new Element_HTML( do_shortcode('[buddyforms_easypin post_id="' . $post_id . '" post_parent="' . $post_parent . '"]<br><br>')));
             break;
@@ -104,7 +102,11 @@ function buddyforms_easypin_after_save_post( $post_id ) {
 	$thumbnail_id = get_post_thumbnail_id( $_POST['easypin-id'] );
 	$buddyforms_easypin_image = get_post_meta( $thumbnail_id, 'buddyforms_easypin_image', true );
 
-	$post_parent = $_POST['easypin-id'];
+	$post_parent = (int)$_POST['easypin-id'];
+
+	if( ! is_array( $buddyforms_easypin_image ) ){
+		$buddyforms_easypin_image = Array();
+	}
 
 	$buddyforms_easypin_image[$post_parent][$post_id]['post_id'] =  $post_id;
 	$buddyforms_easypin_image[$post_parent][$post_id]['long'] = isset( $_POST['easypin-long'] ) ? $_POST['easypin-long'] : 0 ;

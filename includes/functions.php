@@ -1,24 +1,12 @@
 <?php
 
-add_filter( 'the_content', 'buddyforms_easypin_display_image', 10, 1 );
-function buddyforms_easypin_display_image( $content ) {
+//add_filter( 'the_content', 'buddyforms_easypin_display_image', 10, 1 );
+function buddyforms_easypin_display_image(  ) {
 	global $post, $paged, $buddyforms, $form_slug;
 
 
-	if ( ! is_single() ) {
-		return $content;
-	}
-
-	if ( is_admin() ) {
-		return $content;
-	}
-
-	if ( ! isset( $buddyforms ) ) {
-		return $content;
-	}
-
 	if ( $post->post_parent ) {
-		return $content;
+		return;
 	}
 
 	$form_slug = get_post_meta( $post->ID, '_bf_form_slug', true );
@@ -32,9 +20,9 @@ function buddyforms_easypin_display_image( $content ) {
 
 	$buddyforms_easypin_image = get_post_meta( $thumbnail_id, 'buddyforms_easypin_image', true );
 
-	echo '<pre>';
-    print_r($buddyforms_easypin_image);
-	echo '</pre>';
+//	echo '<pre>';
+//    print_r($buddyforms_easypin_image);
+//	echo '</pre>';
 
 
 	if( isset( $buddyforms_easypin_image[get_the_ID()] ) && is_array( $buddyforms_easypin_image[get_the_ID()] ) ) {
@@ -144,5 +132,5 @@ function buddyforms_easypin_display_image( $content ) {
 
 	$tmp = ob_get_clean();
 
-	echo $tmp.$content;
+	echo $tmp;
 }
