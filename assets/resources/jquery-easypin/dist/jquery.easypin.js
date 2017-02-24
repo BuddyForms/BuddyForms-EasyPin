@@ -330,9 +330,9 @@
 
             // marker container append to pin parent container and run callback function
             if(is_open('popup', depends.parentElement)) {
-                $(depends.parentElement).prepend(markerContainer, $.fn.easypin.defaults.drop(depends.absX, depends.absY, markerContainer));
+                $(depends.parentElement).prepend(markerContainer, $.fn.easypin.defaults.drop(depends.absX, depends.absY, markerContainer, parentId));
             }else{
-                $(depends.parentElement).append(markerContainer, $.fn.easypin.defaults.drop(depends.absX, depends.absY, markerContainer));
+                $(depends.parentElement).append(markerContainer, $.fn.easypin.defaults.drop(depends.absX, depends.absY, markerContainer, parentId));
             }
 
             // calculate tools position for animate
@@ -443,7 +443,7 @@
                     checkToolsPosition(absY, depends.imageHeight, markerContainer)
 
                     // drag event
-                    $.fn.easypin.defaults.drag(absX, absY, markerContainer);
+                    $.fn.easypin.defaults.drag(absX, absY, markerContainer, parentId);
 
                     $(markerContainer).css({
                         position: 'absolute',

@@ -5,9 +5,9 @@ function buddyforms_easypin_display_image(  ) {
 	global $post, $paged, $buddyforms, $form_slug;
 
 
-	if ( $post->post_parent ) {
-		return;
-	}
+//	if ( !$post->post_parent ) {
+//		return;
+//	}
 
 	$form_slug = get_post_meta( $post->ID, '_bf_form_slug', true );
 
@@ -15,7 +15,12 @@ function buddyforms_easypin_display_image(  ) {
 		return $content;
 	}
 
-	$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
+	$parent_id = wp_get_post_parent_id( get_the_ID() );
+
+	$parent_id = $parent_id == 0 ? get_the_ID() : $parent_id;
+
+
+	$thumbnail_id = get_post_thumbnail_id( $parent_id );
 	$image = wp_get_attachment_image_src( $thumbnail_id, "full" );
 
 	$buddyforms_easypin_image = get_post_meta( $thumbnail_id, 'buddyforms_easypin_image', true );
@@ -24,14 +29,13 @@ function buddyforms_easypin_display_image(  ) {
 //    print_r($buddyforms_easypin_image);
 //	echo '</pre>';
 
-
-	if( isset( $buddyforms_easypin_image[get_the_ID()] ) && is_array( $buddyforms_easypin_image[get_the_ID()] ) ) {
-
-
-		$cords = $buddyforms_easypin_image[get_the_ID()];
+	if( isset( $buddyforms_easypin_image[ $parent_id ] ) && is_array( $buddyforms_easypin_image[ $parent_id ]  ) ) {
 
 
-		$data = '{"demo_image_1":{';
+		$cords = $buddyforms_easypin_image[ $parent_id ];
+
+
+		$data = '{"' . $parent_id . '":{';
 
 		$height = 'auto';
 		$width = 'auto';
@@ -47,7 +51,7 @@ function buddyforms_easypin_display_image(  ) {
 		    $width =  $cort['width'];
 
 		    $data .= '"' . $i . '":{';
-		    $data .= '"name":"' . $pin_post->post_title . '",';
+		    $data .= '"title":"' . $pin_post->post_title . '",';
 		    $data .= '"description":"' . $pin_post->post_content . '",';
 		    $data .= '"permalink":"' . get_the_permalink($post_id) . '",';
 		    $data .= '"coords":{';
@@ -58,6 +62,7 @@ function buddyforms_easypin_display_image(  ) {
         }
 
 		$data .= '"canvas":{';
+//		$data .= '"src":"http://1ertuning/wp-content/uploads/2017/02/IMG_0257.jpg",';
 		$data .= '"width":"' . $width . '",';
 		$data .= '"height":"' . $height . '"';
 		$data .= '}}';
@@ -72,7 +77,7 @@ function buddyforms_easypin_display_image(  ) {
     <div>
         <div class="easypin" style="width: auto; height: auto;">
             <div style="position: relative; height: 100%;">
-                <img src="<?php echo $image[0] ?>" class="pin" easypin-id="demo_image_1"
+                <img width="750" src="<?php echo $image[0] ?>" class="pin" easypin-id="<?php echo $parent_id ?>"
                      style="opacity: 1;"></div>
         </div>
     </div>
@@ -82,7 +87,7 @@ function buddyforms_easypin_display_image(  ) {
                 <div class="popBg borderRadius"></div>
                 <div class="popBody">
                     <div class="arrow-down" style="top: 150px;left: 13px;"></div>
-                    <h1>{[name]}</h1>
+                    <h1>{[title]}</h1>
                     <div class="popHeadLine"></div>
                     <div class="popContentLeft">
                         {[description]}
@@ -102,7 +107,7 @@ function buddyforms_easypin_display_image(  ) {
             jQuery('.pin').easypinShow({
 
                 data:'<?php echo $data ?>',
-                responsive: true,
+                responsive: false,
                 variables: {
                     firstname: function (canvas_id, pin_id, data) {
                         //console.log(canvas_id, pin_id, data);

@@ -32,11 +32,12 @@ function buddyforms_easypin_create_new_form_builder_form_element( $form_fields, 
 
 		case 'easypin':
 			unset( $form_fields );
-			$name = 'easypin';
-			if ( isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] ) ) {
-				$name = $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'];
-			}
+
+			$name = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] : 'easypin';
 			$form_fields['general']['name'] = new Element_Textbox( '<b>' . __( 'Name', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][name]", array( 'value' => $name ) );
+
+			$gallery_slug = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['gallery_slug'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['gallery_slug'] : 'featured_image';
+			$form_fields['general']['gallery_slug'] = new Element_Textbox( '<b>' . __( 'Gallery Slug', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][gallery_slug]", array( 'value' => $gallery_slug ) );
 
 			$form_fields['advanced']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'easypin' );
 
@@ -71,7 +72,7 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 				return $form;
 			}
 
-            $form->addElement( new Element_HTML( do_shortcode('[buddyforms_easypin post_id="' . $post_id . '" post_parent="' . $post_parent . '"]<br><br>')));
+            $form->addElement( new Element_HTML( do_shortcode('[buddyforms_easypin post_id="' . $post_id . '" post_parent="' . $post_parent . '" gallery_slug="' . $customfield['gallery_slug'] . '"]<br><br>')));
             break;
 	}
 
@@ -84,18 +85,12 @@ add_filter( 'buddyforms_create_edit_form_display_element', 'buddyforms_easypin_c
 add_action( 'buddyforms_after_save_post', 'buddyforms_easypin_after_save_post', 10, 1 );
 function buddyforms_easypin_after_save_post( $post_id ) {
 
-	if( ! isset( $_POST['easypin-id'] ) ){
+	if( ! isset( $_POST['easypin'] ) ){
 		return;
 	}
 
-	$buddyforms_easypin_post['parent_id'] = $_POST['easypin-id'];
-	$buddyforms_easypin_post['long'] = isset( $_POST['easypin-long'] ) ? $_POST['easypin-long'] : 0 ;
-	$buddyforms_easypin_post['lat'] = isset( $_POST['easypin-lat'] ) ? $_POST['easypin-lat'] : 0 ;
-	$buddyforms_easypin_post['width'] = isset( $_POST['easypin-width'] ) ? $_POST['easypin-width'] : 'auto';
-	$buddyforms_easypin_post['height'] = isset( $_POST['easypin-height'] ) ? $_POST['easypin-height'] : 'auto';
-
 	// Save the coordinates in the post for the edit screen
-	update_post_meta( $post_id, 'buddyforms_easypin_post', $buddyforms_easypin_post );
+	update_post_meta( $post_id, 'buddyforms_easypin_post', $_POST['easypin'] );
 
 	// Save the coordinates as attachment meta for easy access if the image is displayed.
 	// Each attachment can be use in multible posts as featured image with different pins
@@ -108,7 +103,7 @@ function buddyforms_easypin_after_save_post( $post_id ) {
 		$buddyforms_easypin_image = Array();
 	}
 
-	$buddyforms_easypin_image[$post_parent][$post_id]['post_id'] =  $post_id;
+	$buddyforms_easypin_image[$post_parent][$post_id]['post_id'] =  $_POST['easypin-id'];
 	$buddyforms_easypin_image[$post_parent][$post_id]['long'] = isset( $_POST['easypin-long'] ) ? $_POST['easypin-long'] : 0 ;
 	$buddyforms_easypin_image[$post_parent][$post_id]['lat'] = isset( $_POST['easypin-lat'] ) ? $_POST['easypin-lat'] : 0 ;
 	$buddyforms_easypin_image[$post_parent][$post_id]['width'] = isset( $_POST['easypin-width'] ) ? $_POST['easypin-width'] : 'auto';
