@@ -101,7 +101,7 @@ function buddyforms_easypin_display_image(  ) {
     </div>
 
     <div style="margin-top: 20px" class="row">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div id="bf-easypin-carousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <?php
                 $active = 'active';
@@ -109,7 +109,7 @@ function buddyforms_easypin_display_image(  ) {
                 foreach( $gallery as $img_id ) {
 
                     $image = wp_get_attachment_image_src( $img_id, "full" ); ?>
-                    <div class="item <?php echo $active ?>"  data-slide-number="<?php echo $i ?>">
+                    <div class="item <?php echo $active ?>" data-slide-number="<?php echo $i ?>">
                         <img width="100%" src="<?php echo $image[0]; ?>" class="pin" easypin-id="<?php echo $img_id ?>"/>
                     </div>
                     <?php
@@ -118,10 +118,10 @@ function buddyforms_easypin_display_image(  ) {
                 }
                 ?>
                 <!-- Carousel controls -->
-                <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                <a class="carousel-control left" href="#bf-easypin-carousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
-                <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                <a class="carousel-control right" href="#bf-easypin-carousel" data-slide="next">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
             </div>
@@ -249,29 +249,27 @@ function buddyforms_easypin_display_image(  ) {
                     console.log('başarılı');
                 }
             });
-            jQuery('#myCarousel').carousel({
+            jQuery('#bf-easypin-carousel').carousel({
                 interval: false
             });
-            jQuery('#myCarousel .item').removeClass('active');
-            jQuery('#myCarousel .item:first').addClass('active');
+            jQuery('#bf-easypin-carousel .item').removeClass('active');
+            jQuery('#bf-easypin-carousel .item:first').addClass('active');
 
-//            jQuery('#slider-thumbs a').removeClass('selected');
             jQuery('#slider-thumbs a:first').addClass('selected');
 
 
             // handles the carousel thumbnails
             jQuery('.carousel-selector').click( function(){
-                alert('asdsad');
                 var id_selector = jQuery(this).attr("id");
                 var id = id_selector.substr(id_selector.length -1);
                 id = parseInt(id);
-                jQuery('#myCarousel').carousel(id);
+                jQuery('#bf-easypin-carousel').carousel(id);
                 jQuery('[id^=carousel-selector-]').removeClass('selected');
                 jQuery(this).addClass('selected');
             });
 
             // when the carousel slides, auto update
-            jQuery('#myCarousel').on('slid', function (e) {
+            jQuery('.bf-easypin-carousel').on('slid', function (e) {
                 var id = jQuery('.item.active').data('slide-number');
                 id = parseInt(id);
                 jQuery('.carousel-selector').removeClass('selected');
