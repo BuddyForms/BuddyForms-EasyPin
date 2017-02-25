@@ -109,7 +109,7 @@ function buddyforms_easypin_display_image(  ) {
                 foreach( $gallery as $img_id ) {
 
                     $image = wp_get_attachment_image_src( $img_id, "full" ); ?>
-                    <div class="item <?php echo $active ?>" data-slide-number="<?php echo $i ?>">
+                    <div width="95%" height="95%" class="item <?php echo $active ?>" data-slide-number="<?php echo $i ?>">
                         <img width="100%" src="<?php echo $image[0]; ?>" class="pin" easypin-id="<?php echo $img_id ?>"/>
                     </div>
                     <?php
@@ -118,12 +118,12 @@ function buddyforms_easypin_display_image(  ) {
                 }
                 ?>
                 <!-- Carousel controls -->
-                <a class="carousel-control left" href="#bf-easypin-carousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="carousel-control right" href="#bf-easypin-carousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
+<!--                <a class="carousel-control left" href="#bf-easypin-carousel" data-slide="prev">-->
+<!--                    <span class="glyphicon glyphicon-chevron-left"></span>-->
+<!--                </a>-->
+<!--                <a class="carousel-control right" href="#bf-easypin-carousel" data-slide="next">-->
+<!--                    <span class="glyphicon glyphicon-chevron-right"></span>-->
+<!--                </a>-->
             </div>
         </div>
 
@@ -224,7 +224,7 @@ function buddyforms_easypin_display_image(  ) {
             jQuery('.pin').easypinShow({
 
                 data:'{<?php echo $easy_init ?>}',
-                responsive: false,
+                responsive: true,
                 variables: {
                     firstname: function (canvas_id, pin_id, data) {
                         //console.log(canvas_id, pin_id, data);

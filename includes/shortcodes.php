@@ -149,7 +149,7 @@ function buddyforms_easypin($shortcode_args){
 
             ?>
             </div>
-<!--            <!-- Carousel controls -->-->
+            <!-- Carousel controls -->
 <!--            <a class="carousel-control left" href="#bf-easypin-carousel" data-slide="prev">-->
 <!--                <span class="glyphicon glyphicon-chevron-left"></span>-->
 <!--            </a>-->
