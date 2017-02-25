@@ -43,7 +43,7 @@ function buddyforms_easypin_display_image(  ) {
 			    foreach ($cords as $cord){
 				    if( !empty( $cord['id'] ) ) {
 
-					    $pin_post = get_post($cord['post_id']);
+					    $pin_post = get_post($post->ID);
 					    
 					    $easy_init .= '"' . $i . '":{';
 					    $easy_init .= '"title":"' . $pin_post->post_title . '",';
