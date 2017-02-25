@@ -33,26 +33,18 @@ function buddyforms_easypin($shortcode_args){
 
 	$easypin_post = get_post_meta( $post_id, 'buddyforms_easypin_post', true );
 
-	echo '<pre>';
-	print_r($easypin_post);
-	echo '</pre>';
+//	echo '<pre>';
+//	print_r($easypin_post);
+//	echo '</pre>';
 
 	$easy_init = '';
 	if( is_array( $easypin_post ) ){
-
-	    $i = 1;
 		foreach ( $easypin_post as $img_id => $cords){
 			if( !empty( $cords['id'] ) ) {
-				$easy_init .= '"' . $cords['id'] . '":{"0":{"coords":{"lat":"' . $cords['lat'] . '","long":"' .  $cords['long'] . '"}},"canvas":{"src":"' . $cords['src'] . '", "width":"' . $cords['width'] . '","height":"' . $cords['height'] . '"}}';
-
-				$count = count($easypin_post);
-				if( count($easypin_post) > $i++ ){
-					$easy_init .= ",";
-                }
-
+				$easy_init .= '"' . $cords['id'] . '":{"0":{"coords":{"lat":"' . $cords['lat'] . '","long":"' .  $cords['long'] . '"}},"canvas":{"src":"' . $cords['src'] . '", "width":"' . $cords['width'] . '","height":"' . $cords['height'] . '"}},';
 			}
 		}
-
+		$easy_init = substr($easy_init, 0, -1);
 	}
 	
 	
@@ -64,9 +56,7 @@ function buddyforms_easypin($shortcode_args){
 
         jQuery(document).ready(function () {
 
-
             inittest();
-
             jQuery(document).on('click', '.easy-delete', function () {
 
                 jQuery('#easypin-id-<?php echo $img_id ?>').val('');
@@ -80,13 +70,8 @@ function buddyforms_easypin($shortcode_args){
             jQuery('#myCarousel').carousel({
                 interval: false
             });
-            jQuery('#myCarousel').bind('slide.bs.carousel', function (e) {
-            });
-            jQuery('#myCarousel').on('slid.bs.carousel', function (e) {
-            });
             jQuery('#myCarousel .item').removeClass('active');
             jQuery('#myCarousel .item:first').addClass('active');
-//            inittest();
         });
 
     </script>
@@ -98,6 +83,7 @@ function buddyforms_easypin($shortcode_args){
 
             $image = wp_get_attachment_image_src( $img_id, "full" ); ?>
             <div class="item <?php echo $active ?>">
+                <input name="easypin[<?php echo $img_id ?>][post_id]"     id="easypin-post_id-<?php echo $img_id ?>"     type="hidden" value="<?php echo $post_id; ?>">
                 <input name="easypin[<?php echo $img_id ?>][id]"     id="easypin-id-<?php echo $img_id ?>"     type="hidden" value="">
                 <input name="easypin[<?php echo $img_id ?>][src]"    id="easypin-id-<?php echo $img_id ?>"    type="hidden" value="<?php echo $image[0] ?>">
                 <input name="easypin[<?php echo $img_id ?>][long]"   id="easypin-long-<?php echo $img_id ?>"   type="hidden" value="">

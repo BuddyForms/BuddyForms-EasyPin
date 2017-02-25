@@ -89,27 +89,35 @@ function buddyforms_easypin_after_save_post( $post_id ) {
 		return;
 	}
 
+
 	// Save the coordinates in the post for the edit screen
 	update_post_meta( $post_id, 'buddyforms_easypin_post', $_POST['easypin'] );
 
-	// Save the coordinates as attachment meta for easy access if the image is displayed.
-	// Each attachment can be use in multible posts as featured image with different pins
-	$thumbnail_id = get_post_thumbnail_id( $_POST['easypin-id'] );
-	$buddyforms_easypin_image = get_post_meta( $thumbnail_id, 'buddyforms_easypin_image', true );
+	$parent_id = wp_get_post_parent_id( $post_id );
 
-	$post_parent = (int)$_POST['easypin-id'];
+	if( $parent_id != 0 ){
 
-	if( ! is_array( $buddyforms_easypin_image ) ){
-		$buddyforms_easypin_image = Array();
+		$buddyforms_easypin_image = get_post_meta( $parent_id, 'buddyforms_easypin_image', true );
+
+		if( ! is_array( $buddyforms_easypin_image ) ){
+			$buddyforms_easypin_image = Array();
+		}
+
+		$easypin = $_POST['easypin'];
+
+		foreach( $easypin as $p_id => $pin ){
+			$buddyforms_easypin_image[ $p_id ][$post_id] = $pin;
+		}
+
+
+
+		update_post_meta( $parent_id,'buddyforms_easypin_image', $buddyforms_easypin_image );
+
 	}
 
-	$buddyforms_easypin_image[$post_parent][$post_id]['post_id'] =  $_POST['easypin-id'];
-	$buddyforms_easypin_image[$post_parent][$post_id]['long'] = isset( $_POST['easypin-long'] ) ? $_POST['easypin-long'] : 0 ;
-	$buddyforms_easypin_image[$post_parent][$post_id]['lat'] = isset( $_POST['easypin-lat'] ) ? $_POST['easypin-lat'] : 0 ;
-	$buddyforms_easypin_image[$post_parent][$post_id]['width'] = isset( $_POST['easypin-width'] ) ? $_POST['easypin-width'] : 'auto';
-	$buddyforms_easypin_image[$post_parent][$post_id]['height'] = isset( $_POST['easypin-height'] ) ? $_POST['easypin-height'] : 'auto';
 
-	update_post_meta( $thumbnail_id,'buddyforms_easypin_image', $buddyforms_easypin_image );
+
+
 
 }
 
