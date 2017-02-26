@@ -9,7 +9,7 @@
  * Author URI: https://profiles.wordpress.org/svenl77
  * Licence: GPLv3
  * Network: false
- * Text Domain: buddyforms
+ * Text Domain: easypin
  * Domain Path: /languages
  *
  * @fs_premium_only /includes/admin/form-metabox.php
@@ -101,7 +101,6 @@ class BuddyForms_EasyPin {
 
 	}
 
-
 	/**
 	 * Include files needed by BuddyForms EasyPin
 	 *
@@ -110,13 +109,8 @@ class BuddyForms_EasyPin {
 	 */
 	public function includes() {
 
-		require_once( BUDDYFORMS_EASYPIN_INCLUDES_PATH . 'shortcodes.php' );
 		require_once( BUDDYFORMS_EASYPIN_INCLUDES_PATH . 'functions.php' );
 		require_once( BUDDYFORMS_EASYPIN_INCLUDES_PATH . 'form-elements.php' );
-
-		if ( is_admin() ) {
-//			require_once( BUDDYFORMS_INCLUDES_PATH . '/admin/admin.php' );
-		}
 
 	}
 
@@ -127,7 +121,7 @@ class BuddyForms_EasyPin {
 	 * @since 0.1-beta
 	 */
 	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'buddyforms', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'easypin', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	public function front_js(){

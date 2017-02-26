@@ -1,84 +1,67 @@
 <?php
 
-//add_filter( 'the_content', 'buddyforms_easypin_display_image', 10, 1 );
-function buddyforms_easypin_display_image(  ) {
-	global $post, $paged, $buddyforms, $form_slug;
+/*
+ * Display the image in the single template
+ * You can use this function as example and starting point for your own design ideas.
+ * Just copy this function to your theme functions.php andn rename it.
+ * Than use this function in your theme single template
+ */
+function buddyforms_easypin_display_image() {
+	global $post;
 
-
-//	if ( !$post->post_parent ) {
-//		return;
-//	}
-
-//	$form_slug = get_post_meta( $post->ID, '_bf_form_slug', true );
-
-//	if ( ! $form_slug ) {
-//		return $content;
-//	}
-
+	// Get the Parent post id
 	$parent_id = wp_get_post_parent_id( $post->ID );
 
+	// Check if parent is 0. In this case we are the parent and need to use the post id
 	$parent_id = $parent_id == 0 ? $post->ID : $parent_id;
 
+	// Get the images from the parent
+    $buddyforms_easypin_image = get_post_meta( $parent_id, 'buddyforms_easypin_image', true );
 
-//	$thumbnail_id = get_post_thumbnail_id( $parent_id );
-//	$image = wp_get_attachment_image_src( $thumbnail_id, "full" );
+    // Create the json for the frontend
+    $easy_init = '';
+    if( is_array( $buddyforms_easypin_image ) ){
+        foreach ( $buddyforms_easypin_image as $img_id => $cords){
+            $easy_init .= '"' . $img_id . '":{';
+            $i = 0;
+            foreach ($cords as $cord){
+                if( !empty( $cord['id'] ) ) {
 
-	$buddyforms_easypin_image = get_post_meta( $parent_id, 'buddyforms_easypin_image', true );
+                    $pin_post = get_post($cord['post_id']);
 
-//	echo '<pre>';
-//    print_r($buddyforms_easypin_image);
-//	echo '</pre>';
+                    $easy_init .= '"' . $i . '":{';
+                    $easy_init .= '"title":"' . $pin_post->post_title . '",';
+                    $easy_init .= '"description":"' . $pin_post->post_content . '",';
+                    $easy_init .= '"permalink":"' . get_the_permalink( $cord['post_id'] ) . '",';
+                    $easy_init .= '"coords":{"lat":"' . $cord['lat'] . '","long":"' .  $cord['long'] . '"}},"canvas":{"src":"' . $cord['src'] . '", "width":"' . $cord['width'] . '","height":"' . $cord['height'] . '"},';
 
-//	if( isset( $buddyforms_easypin_image[ $post->ID ] ) && is_array( $buddyforms_easypin_image[ $post->ID ]  ) ) {
-
-
-//		$cords = $buddyforms_easypin_image[ $post->ID ];
-
-
-		$easy_init = '';
-		if( is_array( $buddyforms_easypin_image ) ){
-			foreach ( $buddyforms_easypin_image as $img_id => $cords){
-				$easy_init .= '"' . $img_id . '":{';
-				$i = 0;
-			    foreach ($cords as $cord){
-				    if( !empty( $cord['id'] ) ) {
-
-					    $pin_post = get_post($post->ID);
-					    
-					    $easy_init .= '"' . $i . '":{';
-					    $easy_init .= '"title":"' . $pin_post->post_title . '",';
-					    $easy_init .= '"description":"' . $pin_post->post_content . '",';
-					    $easy_init .= '"permalink":"' . get_the_permalink( $cord['post_id'] ) . '",';
-					    $easy_init .= '"coords":{"lat":"' . $cord['lat'] . '","long":"' .  $cord['long'] . '"}},"canvas":{"src":"' . $cord['src'] . '", "width":"' . $cord['width'] . '","height":"' . $cord['height'] . '"},';
-				    }
-				    $i++;
                 }
-				$easy_init = substr($easy_init, 0, -1);
-                $easy_init .= '},';
-			}
-			$easy_init = substr($easy_init, 0, -1);
-		}
-
-
-
-//	echo $easy_init;
-
-        $gallery_string = get_post_meta( $parent_id, 'bilder', true );
-
-        if( empty($gallery_string) ){
-            return;
+                $i++;
+            }
+            $easy_init = substr($easy_init, 0, -1);
+            $easy_init .= '},';
         }
+        $easy_init = substr($easy_init, 0, -1);
+    }
 
-        $gallery = explode( ',', $gallery_string );
+    // get the file form element we are using for the gallery
+    $gallery_string = get_post_meta( $parent_id, 'bilder', true );
 
-        if( ! is_array($gallery) ){
-            return;
-        }
+    if( empty($gallery_string) ){
+        return;
+    }
 
+    $gallery = explode( ',', $gallery_string );
 
-?>
+    if( ! is_array($gallery) ){
+        return;
+    }
 
+    // Now let us create the HTML and JavaScript and echo all in the end
+	ob_start();
+    ?>
 
+    <!-- Normal left, right navigation does not work well with easypin. It overlay the pins. So we have decided to use thump -->
     <div  class="row">
         <!-- thumb navigation carousel -->
         <div class="col-md-12 hidden-sm hidden-xs" id="slider-thumbs">
@@ -100,6 +83,7 @@ function buddyforms_easypin_display_image(  ) {
         </div>
     </div>
 
+    <!-- Display the images -->
     <div style="margin-top: 20px" class="row">
         <div id="bf-easypin-carousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -117,87 +101,18 @@ function buddyforms_easypin_display_image(  ) {
 
                 }
                 ?>
-                <!-- Carousel controls -->
-<!--                <a class="carousel-control left" href="#bf-easypin-carousel" data-slide="prev">-->
-<!--                    <span class="glyphicon glyphicon-chevron-left"></span>-->
-<!--                </a>-->
-<!--                <a class="carousel-control right" href="#bf-easypin-carousel" data-slide="next">-->
-<!--                    <span class="glyphicon glyphicon-chevron-right"></span>-->
-<!--                </a>-->
             </div>
         </div>
-
     </div>
 
-
-
-     <?php
-
-
-
-
-
-
-
-
-
-
-//		$data = '{"' . $cords . '":{';
-//
-//		$height = 'auto';
-//		$width = 'auto';
-//
-//		$i = 0;
-//	    foreach($cords as $post_id => $cort){
-//
-//	        $post_id = $cort['post_id'];
-//
-//	        $pin_post = get_post($post_id);
-//
-//		    $height =  $cort['height'];
-//		    $width =  $cort['width'];
-//
-//		    $data .= '"' . $i . '":{';
-//		    $data .= '"title":"' . $pin_post->post_title . '",';
-//		    $data .= '"description":"' . $pin_post->post_content . '",';
-//		    $data .= '"permalink":"' . get_the_permalink($post_id) . '",';
-//		    $data .= '"coords":{';
-//		    $data .= '"lat":"' . $cort['lat'] . '",';
-//		    $data .= '"long":"' . $cort['long'] . '"}},';
-//
-//		    $i++;
-//        }
-//
-//		$data .= '"canvas":{';
-//		$data .= '"src":"http://1ertuning/wp-content/uploads/2017/02/IMG_0257.jpg",';
-//		$data .= '"width":"' . $width . '",';
-//		$data .= '"height":"' . $height . '"';
-//		$data .= '}}';
-//		$data .= '}';
-
-
-//	}
-
-	ob_start();
-
-//	if( is_array( $buddyforms_easypin_image ) ){
-//		foreach ( $buddyforms_easypin_image as $img_id => $cords){
-//			foreach ($cords as $img_id => $cord){
-//				if( !empty( $cord['id'] ) ) {
-//					?><!--<img width="750" src="--><?php //echo $cord['src'] ?><!--" class="pin" easypin-id="--><?php //echo $cord['id'] ?><!--"style="opacity: 1;">--><?php
-//				}
-//			}
-//		}
-//	}
-
-	?>
-
+    <!-- Pin HTML -->
     <div>
         <div class="easypin" style="width: auto; height: auto;">
-            <div style="position: relative; height: 100%;">
-                </div>
+            <div style="position: relative; height: 100%;"></div>
         </div>
     </div>
+
+    <!-- Overlay Popover HTML -->
     <div style="display:none;" easypin-tpl="">
         <popover>
             <div class="exPopoverContainer">
@@ -215,6 +130,7 @@ function buddyforms_easypin_display_image(  ) {
             </div>
         </popover>
 
+        <!-- Pin HTML -->
         <marker>
             <div class="marker2">+</div>
         </marker>
@@ -276,12 +192,200 @@ function buddyforms_easypin_display_image(  ) {
                 jQuery('[id=carousel-selector-'+id+']').addClass('selected');
             });
 
-
-
         });
     </script><?php
 
 	$tmp = ob_get_clean();
 
 	echo $tmp;
+}
+
+
+/*
+ * Create the Gallery view for the set Image in the edit screen
+ */
+function buddyforms_edit_easypin($shortcode_args){
+	global $wp_query, $buddyforms;
+
+	extract( shortcode_atts( array(
+		'post_parent'   => 0,
+		'post_id'       => 0,
+		'gallery_slug'  => 'featured_image'
+	), $shortcode_args ) );
+
+	// Get the gallery image ids as string
+	$gallery_string = get_post_meta( $post_parent, $gallery_slug, true );
+	if( empty($gallery_string) ){
+		return;
+	}
+
+	// Create array of images
+	$gallery = explode( ',', $gallery_string );
+	if( ! is_array($gallery) ){
+		return;
+	}
+
+	// get the coordinates
+	$easypin_post = get_post_meta( $post_id, 'buddyforms_easypin_post', true );;
+
+	// Create the jason for the coordinates
+	$easy_init = '';
+	if( is_array( $easypin_post ) ){
+		foreach ( $easypin_post as $img_id => $cords){
+			if( !empty( $cords['id'] ) ) {
+				$easy_init .= '"' . $cords['id'] . '":{"0":{"coords":{"lat":"' . $cords['lat'] . '","long":"' .  $cords['long'] . '"}},"canvas":{"src":"' . $cords['src'] . '", "width":"' . $cords['width'] . '","height":"' . $cords['height'] . '"}},';
+			}
+		}
+		$easy_init = substr($easy_init, 0, -1);
+	}
+
+	// create the js amd html
+	ob_start();
+	?>
+
+    <script>
+
+        jQuery(document).ready(function () {
+
+            inittest();
+            jQuery(document).on('click', '.easy-delete', function () {
+
+                jQuery('#easypin-id-<?php echo $img_id ?>').val('');
+                jQuery('#easypin-long-<?php echo $img_id ?>').val('');
+                jQuery('#easypin-lat-<?php echo $img_id ?>').val('');
+                jQuery('#easypin-width-<?php echo $img_id ?>').val('');
+                jQuery('#easypin-height-<?php echo $img_id ?>').val('');
+
+            });
+
+            jQuery('#bf-easypin-carousel').carousel({
+                interval: false
+            });
+            jQuery('#bf-easypin-carousel .item').removeClass('active');
+            jQuery('#bf-easypin-carousel .item:first').addClass('active');
+
+            jQuery('#slider-thumbs a:first').addClass('selected');
+
+
+            // handles the carousel thumbnails
+            jQuery('.carousel-selector').click( function(){
+                var id_selector = jQuery(this).attr("id");
+                var id = id_selector.substr(id_selector.length -1);
+                id = parseInt(id);
+                jQuery('#bf-easypin-carousel').carousel(id);
+                jQuery('[id^=carousel-selector-]').removeClass('selected');
+                jQuery(this).addClass('selected');
+            });
+
+            // when the carousel slides, auto update
+            jQuery('.bf-easypin-carousel').on('slid', function (e) {
+                var id = jQuery('.item.active').data('slide-number');
+                id = parseInt(id);
+                jQuery('.carousel-selector').removeClass('selected');
+                jQuery('[id=carousel-selector-'+id+']').addClass('selected');
+            });
+
+        });
+
+    </script>
+
+    <div  class="row">
+        <!-- thumb navigation carousel -->
+        <div class="col-md-12 hidden-sm hidden-xs" id="slider-thumbs">
+            <!-- thumb navigation carousel items -->
+            <ul class="list-inline">
+				<?php
+				$i = 0;
+				foreach( $gallery as $img_id ) {
+					$image = wp_get_attachment_image_src( $img_id, "thumbnail" ); ?>
+                    <li> <a id="carousel-selector-<?php echo $i ?>" class="carousel-selector">
+                            <img class="img-responsive"  src="<?php echo $image[0]; ?>"/>
+                        </a></li>
+					<?php
+					$i++;
+				}
+				?>
+            </ul>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px" class="row">
+        <div id="bf-easypin-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+				<?php
+				$active = 'active';
+				foreach( $gallery as $img_id ) {
+
+					$image = wp_get_attachment_image_src( $img_id, "full" ); ?>
+                    <div class="item <?php echo $active ?>" data-slide-number="<?php echo $i ?>">
+
+                        <input name="easypin[<?php echo $img_id ?>][post_id]"     id="easypin-post_id-<?php echo $img_id ?>"     type="hidden" value="<?php echo $post_id; ?>">
+                        <input name="easypin[<?php echo $img_id ?>][id]"     id="easypin-id-<?php echo $img_id ?>"     type="hidden" value="">
+                        <input name="easypin[<?php echo $img_id ?>][src]"    id="easypin-id-<?php echo $img_id ?>"    type="hidden" value="<?php echo $image[0] ?>">
+                        <input name="easypin[<?php echo $img_id ?>][long]"   id="easypin-long-<?php echo $img_id ?>"   type="hidden" value="">
+                        <input name="easypin[<?php echo $img_id ?>][lat]"    id="easypin-lat-<?php echo $img_id ?>"    type="hidden" value="">
+                        <input name="easypin[<?php echo $img_id ?>][width]"  id="easypin-width-<?php echo $img_id ?>"  type="hidden" value="">
+                        <input name="easypin[<?php echo $img_id ?>][height]" id="easypin-height-<?php echo $img_id ?>" type="hidden" value="">
+
+                        <img width="100%" src="<?php echo $image[0]; ?>" class="buddyforms-pin" easypin-id="<?php echo $img_id ?>"/>
+
+                    </div>
+					<?php
+				}
+				?>
+            </div>
+        </div>
+    </div>
+    <div style="display:none;" popover></div>
+    <script>
+
+        function inittest(){
+            $instance = jQuery('.buddyforms-pin').easypin({
+
+                init: '{<?php echo $easy_init ?>}',
+                limit: 1,
+                exceeded: function (element) {
+                    alert('You only able to create one pin at the time ;)');
+                },
+//                responsive: true,
+                popover: {
+                    show: false,
+                },
+                drop: function (lat, long, element, parentid) {
+                    easypin_set_corts(lat, long, parentid);
+                    jQuery(".pinCanvas").remove();
+                    jQuery(".popover").remove();
+
+                },
+                drag: function (lat, long, element, parentid) {
+                    console.log
+                    easypin_set_corts(lat, long, parentid);
+                    jQuery(".pinCanvas").remove();
+                    jQuery(".popover").remove();
+                }
+            });
+            $instance.easypinShow();
+        }
+
+        function easypin_set_corts(lat, long, img_id) {
+
+            var image = jQuery("[easypin-id=" + img_id + "]");
+            var ep_id = image.attr('easypin-id');
+
+            var width = image.width();
+            var height = image.height();
+
+            jQuery('#easypin-id-' + img_id).val(ep_id);
+            jQuery('#easypin-long-' + img_id).val(long);
+            jQuery('#easypin-lat-' + img_id).val(lat);
+            jQuery('#easypin-width-' + img_id).val(width);
+            jQuery('#easypin-height-' + img_id).val(height);
+
+            return false;
+        }
+    </script>
+
+	<?php
+	$easypin = ob_get_clean();
+	return $easypin;
 }

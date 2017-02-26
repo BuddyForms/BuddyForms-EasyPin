@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Create the easy pin form element
+ * First: add ut to the form element select
+ */
+
+add_filter( 'buddyforms_add_form_element_select_option', 'buddyforms_easypin_add_form_element_to_select', 1, 2 );
 function buddyforms_easypin_add_form_element_to_select( $elements_select_options ) {
 	global $post;
 
@@ -17,13 +23,11 @@ function buddyforms_easypin_add_form_element_to_select( $elements_select_options
 	return $elements_select_options;
 }
 
-add_filter( 'buddyforms_add_form_element_select_option', 'buddyforms_easypin_add_form_element_to_select', 1, 2 );
-
-
 /*
  * Create the new Form Builder Form Element
- *
+ * Create the form element settings
  */
+add_filter( 'buddyforms_form_element_add_field', 'buddyforms_easypin_create_new_form_builder_form_element', 1, 5 );
 function buddyforms_easypin_create_new_form_builder_form_element( $form_fields, $form_slug, $field_type, $field_id ) {
 	global $buddyforms;
 	$buddyforms_options = $buddyforms;
@@ -49,13 +53,11 @@ function buddyforms_easypin_create_new_form_builder_form_element( $form_fields, 
 	return $form_fields;
 }
 
-add_filter( 'buddyforms_form_element_add_field', 'buddyforms_easypin_create_new_form_builder_form_element', 1, 5 );
-
-
 /*
  * Display the new Form Element in the Frontend Form
  *
  */
+add_filter( 'buddyforms_create_edit_form_display_element', 'buddyforms_easypin_create_frontend_form_element', 1, 2 );
 function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 	global $wp_query;
 
@@ -72,7 +74,7 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 				return $form;
 			}
 
-            $form->addElement( new Element_HTML( do_shortcode('[buddyforms_easypin post_id="' . $post_id . '" post_parent="' . $post_parent . '" gallery_slug="' . $customfield['gallery_slug'] . '"]<br><br>')));
+            $form->addElement( new Element_HTML( buddyforms_edit_easypin( array( 'post_id' => $post_id, 'post_parent' => $post_parent, 'gallery_slug' => $customfield['gallery_slug'] ) ) ) );
             break;
 	}
 
@@ -80,15 +82,16 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 
 }
 
-add_filter( 'buddyforms_create_edit_form_display_element', 'buddyforms_easypin_create_frontend_form_element', 1, 2 );
-
+/*
+ * After submit we need to save the data
+ *
+ */
 add_action( 'buddyforms_after_save_post', 'buddyforms_easypin_after_save_post', 10, 1 );
 function buddyforms_easypin_after_save_post( $post_id ) {
 
 	if( ! isset( $_POST['easypin'] ) ){
 		return;
 	}
-
 
 	// Save the coordinates in the post for the edit screen
 	update_post_meta( $post_id, 'buddyforms_easypin_post', $_POST['easypin'] );
@@ -110,16 +113,7 @@ function buddyforms_easypin_after_save_post( $post_id ) {
 			$buddyforms_easypin_image[ $p_id ][$post_id] = $pin;
 		}
 
-
-
 		update_post_meta( $parent_id,'buddyforms_easypin_image', $buddyforms_easypin_image );
 
 	}
-
-
-
-
-
 }
-
-
