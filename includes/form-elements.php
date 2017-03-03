@@ -70,7 +70,7 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 	switch ( $customfield['type'] ) {
 		case 'easypin':
 
-			if($post_parent == 0){
+			if( $post_parent == 0 ){
 				return $form;
 			}
 
