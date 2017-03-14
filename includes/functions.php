@@ -45,7 +45,7 @@ function buddyforms_easypin_display_image() {
     }
 
     // get the file form element we are using for the gallery
-    $gallery_string = get_post_meta( $parent_id, 'bilder', true );
+    $gallery_string = get_post_meta( $parent_id, 'easypin', true );
 
     if( empty($gallery_string) ){
         return;
@@ -60,7 +60,13 @@ function buddyforms_easypin_display_image() {
     // Now let us create the HTML and JavaScript and echo all in the end
 	ob_start();
     ?>
-
+    <style>
+        .carousel-inner {
+            position: relative;
+            overflow: visible !important;
+            width: 100%;
+        }
+    </style>
     <!-- Normal left, right navigation does not work well with easypin. It overlay the pins. So we have decided to use thump -->
     <div  class="row">
         <!-- thumb navigation carousel -->
@@ -210,7 +216,7 @@ function buddyforms_edit_easypin($shortcode_args){
 	extract( shortcode_atts( array(
 		'post_parent'   => 0,
 		'post_id'       => 0,
-		'gallery_slug'  => 'featured_image'
+		'gallery_slug'  => ''
 	), $shortcode_args ) );
 
 	// Get the gallery image ids as string
@@ -288,6 +294,8 @@ function buddyforms_edit_easypin($shortcode_args){
         });
 
     </script>
+
+
 
     <div  class="row">
         <!-- thumb navigation carousel -->

@@ -1,0 +1,95 @@
+=== Form Builder & Front End Editor BuddyForms ===
+Contributors: svenl77, themekraft, buddyforms
+Tags:
+Requires at least: 3.9
+Tested up to: 4.7.3
+Stable tag: 1.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+BuddyForms EasyPin
+
+== Description ==
+
+visualise your stories
+
+Add Posts as Marker to Images and enable your BuddyForms users to link from images to posts in a fancy way.
+
+With BuddyForms easyPin you are able to create a nice user experiences. Mark Parts on an image and link it to relevant posts.
+
+
+Like Child and Parent Posts. Child and Parent Images.
+
+
+
+
+We have created this extension to allow our customer to pin tuning parts on a image of a car.
+
+Its like Facebook People taging just for everything.
+
+Or like Google mapos for Images and Posts.
+
+you could use it to create an interactive story a journals. Make your blog atractive and bring relevant posts together .
+
+
+
+---
+
+<h4>Videos</h4>
+
+Easy Pin in Action [youtube https://www.youtube.com/watch?v=Me-2MJMInYc]
+
+---
+
+> #### Docs & Support
+> * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
+> * or watch one of our Video Tutorials [Videos](https://themekraft.com/buddyforms-videos/)
+
+---
+
+> #### Submit Issues - Contribute
+> * Pull request are welcome. BuddyForms is community driven and developed on [Github](https://buddyforms.github.io/BuddyForms/)
+
+---
+
+> #### Demo Site
+> * Feel free to test BuddyForms on our Demo Site: [BuddyForms Demo](https://addendio.com/try-plugin/?slug=buddyforms)
+
+---
+
+> #### Follow Us
+> [Blog](https://themekraft.com/blog/) | [Twitter](https://twitter.com/buddyforms) | [Facebook](https://www.facebook.com/buddyforms/) | [Google+](https://plus.google.com/u/0/b/100975390423636463712/?pageId=100975390423636463712) | [YouTube](https://www.youtube.com/playlist?list=PLYPguOC5yk7_aB2Q2FTaktqHCXDc_mzqb)
+
+---
+
+> **Powered with ❤ by [ThemeKraft](https://themekraft.com)**
+
+---
+
+#### Tags
+form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
+
+---
+
+== Installation ==
+
+Upload the entire BuddyForms folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
+Activate the plugin through the 'Plugins' menu in WordPress.
+Head to the 'BuddyForms' menu item in your admin sidebar
+
+== Documentation & Support ==
+
+> #### Extensive Documentation and Support
+> * All code is neat, clean and well documented (inline as well as in the documentation).
+> * The BuddyForms Documentation with many how-to’s will help you on your way.
+> * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
+> * or watch one of our [Video Tutorials](https://themekraft.com/buddyforms-videos/)
+> * If you still get stuck somewhere, our support gets you back on the right track. You can find all help buttons in your BuddyForms Settings Panel in your WP Dashboard and the Help Center!
+
+== Screenshots ==
+coming soon
+
+== Changelog ==
+
+
+= 1.0 - 00.00.2017 =
