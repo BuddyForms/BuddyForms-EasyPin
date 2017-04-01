@@ -5,8 +5,8 @@
  * Plugin URI:  https://themekraft.com/buddyforms/
  * Description: Pin your posts
  * Version: 0.1
- * Author: Sven Lehnert
- * Author URI: https://profiles.wordpress.org/svenl77
+ * Author: ThemeKraft
+ * Author URI: https://themekraft.com/buddyforms/
  * Licence: GPLv3
  * Network: false
  * Text Domain: easypin
@@ -56,7 +56,7 @@ class BuddyForms_EasyPin {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 		// Load the EasyPin js
-		add_action( 'wp_enqueue_scripts', array( $this, 'front_js' ), 102, 1 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'front_js' ), 99999, 1 );
 
 	}
 
@@ -110,6 +110,7 @@ class BuddyForms_EasyPin {
 	public function includes() {
 
 		require_once( BUDDYFORMS_EASYPIN_INCLUDES_PATH . 'functions.php' );
+		require_once( BUDDYFORMS_EASYPIN_INCLUDES_PATH . 'admin.php' );
 		require_once( BUDDYFORMS_EASYPIN_INCLUDES_PATH . 'form-elements.php' );
 
 	}
@@ -125,6 +126,15 @@ class BuddyForms_EasyPin {
 	}
 
 	public function front_js(){
+
+		$easypin_settings = get_option( 'buddyforms_easypin_settings', true );
+
+		if( ! isset( $easypin_settings['bootstrap'] ) ){
+			wp_enqueue_script( 'bootstrap-js', plugins_url( 'assets/resources/bootstrap/js/bootstrap.js', __FILE__ ), array( 'jquery' ) );
+		}
+
+		wp_enqueue_style('bootstrap-css', plugins_url( 'assets/resources/bootstrap/css/bootstrap.css', __FILE__ ) );
+
 		wp_enqueue_script( 'jquery-effects-core' );
 		wp_enqueue_script( 'jquery-easypin', plugins_url( 'assets/resources/jquery-easypin/dist/jquery.easypin.js', __FILE__ ), array( 'jquery' ) );
 

@@ -62,6 +62,19 @@ function buddyforms_easypin_create_new_form_builder_form_element( $form_fields, 
 			$form_fields['advanced']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'easypin' );
 
 			$form_fields['general']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
+
+			$easypin_template = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['easypin_template'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['easypin_template'] : '
+<h1>{[title]}</h1>
+<div class="popHeadLine">interresant</div>
+<div class="popContentLeft">
+    {[description]}
+    <br><br><br>
+    <a href="{[permalink]}">More info</a>
+</div>';
+
+
+
+			$form_fields['easypin']['template'] = new Element_HTML( '<p><b>PopOver Template</b></p><p>You can use any form element as template tag. {[slug]}</p><textarea name="buddyforms_options[form_fields][' . $field_id . '][easypin_template]" rows="14" cols="70" type="text" width="100%">' . $easypin_template . '</textarea>');
 			break;
 
 	}

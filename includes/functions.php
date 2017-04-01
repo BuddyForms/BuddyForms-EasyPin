@@ -7,7 +7,7 @@
  * Than use this function in your theme single template
  */
 function buddyforms_easypin_display_image() {
-	global $post;
+	global $post, $buddyforms;
 
 	// Get the Parent post id
 	$parent_id = wp_get_post_parent_id( $post->ID );
@@ -17,6 +17,8 @@ function buddyforms_easypin_display_image() {
 
 	// Get the images from the parent
     $buddyforms_easypin_image = get_post_meta( $parent_id, 'buddyforms_easypin_image', true );
+
+	$form_slug = get_post_meta( $parent_id, '_bf_form_slug', true );
 
     // Create the json for the frontend
     $easy_init = '';
@@ -60,13 +62,7 @@ function buddyforms_easypin_display_image() {
     // Now let us create the HTML and JavaScript and echo all in the end
 	ob_start();
     ?>
-    <style>
-        .carousel-inner {
-            position: relative;
-            overflow: visible !important;
-            width: 100%;
-        }
-    </style>
+
     <!-- Normal left, right navigation does not work well with easypin. It overlay the pins. So we have decided to use thump -->
     <div  class="row">
         <!-- thumb navigation carousel -->
@@ -124,14 +120,15 @@ function buddyforms_easypin_display_image() {
             <div class="exPopoverContainer">
                 <div class="popBg borderRadius"></div>
                 <div class="popBody">
+
+                    <?php
+
+                    $form_element = buddyforms_get_form_field_by_slug( $form_slug,'easypin' );
+                    echo isset($form_element['easypin_template']) ? $form_element['easypin_template'] : '';
+
+                    ?>
+
                     <div class="arrow-down" style="top: 150px;left: 13px;"></div>
-                    <h1>{[title]}</h1>
-                    <div class="popHeadLine"></div>
-                    <div class="popContentLeft">
-                        {[description]}
-                        <br><br><br>
-                        <a href="{[permalink]}">More info</a>
-                    </div>
                 </div>
             </div>
         </popover>

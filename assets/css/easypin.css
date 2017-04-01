@@ -127,3 +127,8 @@
         -ms-transform:  translate(0px,0px)  skewX(0deg) ;
     }
 }
+.carousel-inner {
+    position: relative;
+    overflow: visible !important;
+    width: 100%;
+}
