@@ -219,9 +219,11 @@ function buddyforms_easypin_after_save_post( $post_id ) {
 
 		$easypin = $_POST['easypin'];
 
-		foreach( $easypin as $p_id => $pin ){
-			$pin['post_id'] = $post_id;
-			$buddyforms_easypin_image[ $p_id ][$post_id] = $pin;
+		if( is_array($easypin) ){
+			foreach( $easypin as $p_id => $pin ){
+				$pin['post_id'] = $post_id;
+				$buddyforms_easypin_image[ $p_id ][$post_id] = $pin;
+			}
 		}
 
 		update_post_meta( $parent_id,'buddyforms_easypin_image', $buddyforms_easypin_image );

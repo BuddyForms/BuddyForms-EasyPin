@@ -7,7 +7,7 @@
  * Than use this function in your theme single template
  */
 function buddyforms_easypin_display_image() {
-	global $post, $buddyforms;
+	global $post, $buddyforms, $gallery, $form_slug;
 
 	// Get the Parent post id
 	$parent_id = wp_get_post_parent_id( $post->ID );
@@ -18,7 +18,7 @@ function buddyforms_easypin_display_image() {
 	// Get the images from the parent
     $buddyforms_easypin_image = get_post_meta( $parent_id, 'buddyforms_easypin_image', true );
 
-	$form_slug = get_post_meta( $parent_id, '_bf_form_slug', true );
+	$form_slug = get_post_meta( $post->ID, '_bf_form_slug', true );
 
     // Create the json for the frontend
     $easy_init = '';
@@ -32,9 +32,16 @@ function buddyforms_easypin_display_image() {
                     $pin_post = get_post($cord['post_id']);
 
                     $easy_init .= '"' . $i . '":{';
-                    $easy_init .= '"title":"' . $pin_post->post_title . '",';
+	                $easy_init .= '"title":"' . $pin_post->post_title . '",';
                     $easy_init .= '"description":"' . $pin_post->post_content . '",';
-                    $easy_init .= '"permalink":"' . get_the_permalink( $cord['post_id'] ) . '",';
+
+                    if( isset( $buddyforms[$form_slug]['form_fields'] ) ){
+                        foreach( $buddyforms[$form_slug]['form_fields'] as $field_kay => $field){
+	                        $easy_init .= '"' . $field['slug'] . '":"' . get_post_meta( $pin_post->ID, $field['slug'], true ). '",';
+                        }
+                    }
+
+	                $easy_init .= '"permalink":"' . get_the_permalink( $cord['post_id'] ) . '",';
                     $easy_init .= '"coords":{"lat":"' . $cord['lat'] . '","long":"' .  $cord['long'] . '"}},"canvas":{"src":"' . $cord['src'] . '", "width":"' . $cord['width'] . '","height":"' . $cord['height'] . '"},';
 
                 }
@@ -59,85 +66,10 @@ function buddyforms_easypin_display_image() {
         return;
     }
 
-    // Now let us create the HTML and JavaScript and echo all in the end
-	ob_start();
+	buddyforms_easypin_locate_template('easypin-popover');
     ?>
 
-    <!-- Normal left, right navigation does not work well with easypin. It overlay the pins. So we have decided to use thump -->
-    <div  class="row">
-        <!-- thumb navigation carousel -->
-        <div class="col-md-12 hidden-sm hidden-xs" id="slider-thumbs">
-            <!-- thumb navigation carousel items -->
-            <ul class="list-inline">
-				<?php
-				$i = 0;
-				foreach( $gallery as $img_id ) {
-					$image = wp_get_attachment_image_src( $img_id, "thumbnail" ); ?>
-                    <li> <a id="carousel-selector-<?php echo $i ?>" class="carousel-selector">
-                            <img class="img-responsive"  src="<?php echo $image[0]; ?>"/>
-                        </a></li>
-					<?php
-					$i++;
-				}
 
-				?>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Display the images -->
-    <div style="margin-top: 20px" class="row">
-        <div id="bf-easypin-carousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <?php
-                $active = 'active';
-                $i = 0;
-                foreach( $gallery as $img_id ) {
-
-                    $image = wp_get_attachment_image_src( $img_id, "full" ); ?>
-                    <div width="95%" height="95%" class="item <?php echo $active ?>" data-slide-number="<?php echo $i ?>">
-                        <img width="100%" src="<?php echo $image[0]; ?>" class="pin" easypin-id="<?php echo $img_id ?>"/>
-                    </div>
-                    <?php
-                    $i++;
-
-                }
-                ?>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pin HTML -->
-    <div>
-        <div class="easypin" style="width: auto; height: auto;">
-            <div style="position: relative; height: 100%;"></div>
-        </div>
-    </div>
-
-    <!-- Overlay Popover HTML -->
-    <div style="display:none;" easypin-tpl="">
-        <popover>
-            <div class="exPopoverContainer">
-                <div class="popBg borderRadius"></div>
-                <div class="popBody">
-
-                    <?php
-
-                    $form_element = buddyforms_get_form_field_by_slug( $form_slug,'easypin' );
-                    echo isset($form_element['easypin_template']) ? $form_element['easypin_template'] : '';
-
-                    ?>
-
-                    <div class="arrow-down" style="top: 150px;left: 13px;"></div>
-                </div>
-            </div>
-        </popover>
-
-        <!-- Pin HTML -->
-        <marker>
-            <div class="marker2">+</div>
-        </marker>
-    </div>
     <script type="text/javascript">
         jQuery(document).ready(function () {
             jQuery('.pin').easypinShow({
@@ -145,14 +77,12 @@ function buddyforms_easypin_display_image() {
                 data:'{<?php echo $easy_init ?>}',
                 responsive: true,
                 variables: {
-                    firstname: function (canvas_id, pin_id, data) {
-                        //console.log(canvas_id, pin_id, data);
-                        return data;
-                    },
-                    surname: function (canvas_id, pin_id, data) {
-                        //console.log(canvas_id, pin_id, data);
-                        return data;
-                    }
+                    <?php
+	                if( isset( $buddyforms[$form_slug]['form_fields'] ) ){
+		                foreach( $buddyforms[$form_slug]['form_fields'] as $field_kay => $field){
+	                        echo $field['slug']. ': function (canvas_id, pin_id, data) { return data;},';
+		                }
+	                } ?>
                 },
                 popover: {
                     show: false,
@@ -163,9 +93,6 @@ function buddyforms_easypin_display_image() {
                 },
                 error: function (e) {
                     console.log(e);
-                },
-                success: function () {
-                    console.log('başarılı');
                 }
             });
             jQuery('#bf-easypin-carousel').carousel({
@@ -175,7 +102,6 @@ function buddyforms_easypin_display_image() {
             jQuery('#bf-easypin-carousel .item:first').addClass('active');
 
             jQuery('#slider-thumbs a:first').addClass('selected');
-
 
             // handles the carousel thumbnails
             jQuery('.carousel-selector').click( function(){
@@ -393,4 +319,24 @@ function buddyforms_edit_easypin($shortcode_args){
 	<?php
 	$easypin = ob_get_clean();
 	return $easypin;
+}
+
+
+function buddyforms_easypin_locate_template( $slug ) {
+	global $buddyforms, $bp, $gallery, $current_user, $form_slug, $post_id;
+
+	// Get the current user so its not needed in the templates
+	$current_user  = wp_get_current_user();
+
+	// create the plugin template path
+	$template_path = BUDDYFORMS_EASYPIN_TEMPLATE_PATH .'/'. $slug . '.php';
+
+	// Check if template exist in the child or parent theme and use this path if available
+	if ( $template_file = locate_template( "{$slug}.php", false, false)) {
+		$template_path = $template_file;
+	}
+
+	// Do the include
+	include( $template_path );
+
 }
