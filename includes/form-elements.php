@@ -74,7 +74,7 @@ function buddyforms_easypin_create_new_form_builder_form_element( $form_fields, 
 
 
 
-			$form_fields['easypin']['template'] = new Element_HTML( '<p><b>PopOver Template</b></p><p>You can use any form element as template tag. {[slug]}</p><textarea name="buddyforms_options[form_fields][' . $field_id . '][easypin_template]" rows="14" cols="70" type="text" width="100%">' . $easypin_template . '</textarea>');
+			$form_fields['easypin']['template'] = new Element_HTML( '<p><b>PopOver Template</b></p><p>You can use any form element as template tag. {[slug]}. If you use sub forms for the child posts the form elements need to exist in the both forms. The parent and child forms. All pins from one parent will refer to the parent easypin popover template</p><textarea name="buddyforms_options[form_fields][' . $field_id . '][easypin_template]" rows="14" cols="70" type="text" width="100%">' . $easypin_template . '</textarea>');
 			break;
 
 	}
