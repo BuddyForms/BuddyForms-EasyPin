@@ -24,6 +24,10 @@ We have build it for a customer in need of a tagging feature for tuning parts. T
 
 You could use it to create interactive story a journals. Display relevant story to a Image or Products. IUts a powerfull tool for new and itutive desigsn not exist in wordpress like this before.
 
+### BuddyForms Hook Fields Support
+You can use the BuddyForms Hook Fields extension to hook your galery into the single view of your posts
+
+
 We are exited to see what you are doing with BuddyForms Easy Pin. Please let us know ;) just write us a message!
 
 ---
@@ -81,3 +85,4 @@ coming soon
 
 
 = 1.0 - 04.04.2017 =
+first version

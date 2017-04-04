@@ -1,12 +1,11 @@
 <?php
 
-/*
- * Display the image in the single template
- * You can use this function as example and starting point for your own design ideas.
- * Just copy this function to your theme functions.php andn rename it.
- * Than use this function in your theme single template
- */
-function buddyforms_easypin_display_image() {
+// Template Tag
+function buddyforms_easypin_gallery() {
+    echo buddyforms_easypin_get_gallery();
+}
+
+function buddyforms_easypin_get_gallery() {
 	global $post, $buddyforms, $gallery, $form_slug;
 
 	// Get the Parent post id
@@ -66,9 +65,10 @@ function buddyforms_easypin_display_image() {
         return;
     }
 
+    ob_start();
+
 	buddyforms_easypin_locate_template('easypin-popover');
     ?>
-
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
@@ -126,7 +126,7 @@ function buddyforms_easypin_display_image() {
 
 	$tmp = ob_get_clean();
 
-	echo $tmp;
+	return $tmp;
 }
 
 
@@ -338,5 +338,26 @@ function buddyforms_easypin_locate_template( $slug ) {
 
 	// Do the include
 	include( $template_path );
+
+}
+
+
+add_filter( 'buddyforms_form_element_display_frontend', 'buddyforms_easypin_form_element_display_frontend', 10, 2 );
+
+function buddyforms_easypin_form_element_display_frontend( $meta_tmp, $customfield ){
+
+    if( $customfield['type'] == 'easypin' ){
+	    $meta_tmp = buddyforms_easypin_get_gallery();
+    }
+
+	return $meta_tmp;
+}
+
+add_filter( 'buddyforms_hook_field_types', 'buddyforms_easypin_hook_field_types', 10, 1);
+function buddyforms_easypin_hook_field_types( $hook_field_types ){
+
+	array_push( $hook_field_types, "easypin");
+
+	return $hook_field_types;
 
 }
