@@ -175,6 +175,12 @@ add_action( 'init', function () {
 			'required' => true,
 		);
 
+		$plugins['buddyforms-hook-fields'] = array(
+			'name'     => 'BuddyForms Hook Fields',
+			'slug'     => 'buddyforms-hook-fields',
+			'required' => false,
+		);
+
 		if ( ! defined( 'BUDDYFORMS_PRO_VERSION' ) ) {
 			$plugins['buddyforms'] = array(
 				'name'     => 'BuddyForms',
