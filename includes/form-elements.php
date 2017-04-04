@@ -53,11 +53,14 @@ function buddyforms_easypin_create_new_form_builder_form_element( $form_fields, 
 			$data_types                            = isset( $customfield['data_types'] ) ? $customfield['data_types'] : '';
 			$form_fields['advanced']['data_types'] = new Element_Checkbox( '<b>' . __( 'Select allowed file Types', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][data_types]", $allowed_mime_types, array( 'value' => $data_types ) );
 
-			$name = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] : 'easypin';
+			$name = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] : 'Create Gallery';
 			$form_fields['general']['name'] = new Element_Textbox( '<b>' . __( 'Name', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][name]", array( 'value' => $name ) );
 
-			$gallery_slug = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['gallery_slug'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['gallery_slug'] : 'featured_image';
-			$form_fields['general']['gallery_slug'] = new Element_Textbox( '<b>' . __( 'Gallery Slug', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][gallery_slug]", array( 'value' => $gallery_slug ) );
+			$label_add_gallery = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['label_add_gallery'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['label_add_gallery'] : 'Create Gallery';
+			$form_fields['general']['label_add_gallery'] = new Element_Textbox( '<b>' . __( 'Label for "Create Gallery"', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][label_add_gallery]", array( 'value' => $label_add_gallery ) );
+
+			$label_pin_post = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['label_pin_post'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['label_pin_post'] : 'Pin Post';
+			$form_fields['general']['label_pin_post'] = new Element_Textbox( '<b>' . __( 'Label for "Pin Post"', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][label_pin_post]", array( 'value' => $label_pin_post ) );
 
 			$form_fields['advanced']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'easypin' );
 
@@ -100,6 +103,14 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 		case 'easypin':
 
 			$slug = $customfield['slug'];
+
+
+			$name = empty( $customfield['name'] ) ? __( 'Image Gallery' ) : $customfield['name'];
+
+			$label_add_gallery = empty( $customfield['label_add_gallery'] ) ? __('Create Gallery', 'buddyforms') : $customfield['label_add_gallery'];
+			$label_pin_post = empty( $customfield['label_pin_post'] ) ? __('Pin Post', 'buddyforms') : $customfield['label_pin_post'];
+
+
 
 			if( $post_parent == 0 ){
 
@@ -161,7 +172,7 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 					$data_multiple = 'data-multiple="true"';
 				}
 
-				$str .= '<a href="#" data-slug="' . $slug . '" ' . $data_multiple . ' ' . $allowed_types . ' ' . $library_types . 'data-choose="' . __( 'Add into', 'buddyforms' ) . $name . '" data-update="' . __( 'Add ', 'buddyforms' ) . $name . '" data-delete="' . __( 'Delete ', 'buddyforms' ) . $name . '" data-text="' . __( 'Delete', 'buddyforms' ) . '">' . __( 'Add '. $name . 'Gallery', 'buddyforms' ) . '</a>';
+				$str .= '<a href="#" data-slug="' . $slug . '" ' . $data_multiple . ' ' . $allowed_types . ' ' . $library_types . 'data-choose="' . __( 'Add into', 'buddyforms' ) . '" data-update="' . __( 'Add', 'buddyforms' ) . '" data-delete="' . __( 'Delete', 'buddyforms' ) . '" data-text="' . __( 'Delete', 'buddyforms' ) . '">' . $label_add_gallery . '</a>';
 				$str .= '</span>';
 
 				$str .= '</div><span class="help-inline">';
@@ -180,6 +191,8 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 
 				$form->addElement( new Element_HTML( '</div>' ) );
 			} else {
+
+				$form->addElement( new Element_HTML( '<div class="bf_field_group"><label for="_' . $slug . '">' . $label_pin_post . '</label></div>' ) );
 
 				$form->addElement( new Element_HTML( buddyforms_edit_easypin( array( 'post_id' => $post_id, 'post_parent' => $post_parent, 'gallery_slug' => $slug ) ) ) );
 

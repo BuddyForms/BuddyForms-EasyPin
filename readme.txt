@@ -1,6 +1,6 @@
 === BuddyForms EasyPin ===
 Contributors: svenl77, themekraft, buddyforms
-Tags: easypin, maker, image marker, gallery, image galelry, image relation, hierarchically
+Tags: easypin, maker, image marker, gallery, image gallery, image relation, hierarchically
 Requires at least: 3.9
 Tested up to: 4.7.3
 Stable tag: 1.0
@@ -11,25 +11,36 @@ Visualise your stories. Add posts as marker to images and enable your users to l
 
 == Description ==
 
-With BuddyForms EasyPin you are able to create a nice user experiences. Add Maker to images and link to relevant posts.
+### Add Maker to images and link to relevant posts
 
-### Like Child and Parent Posts. Child and Parent Images.
+Like Child and Parent Posts. Child and Parent Images. Create a Gallery of images and add related posts to this images as pins.
 
-Create a Gallery of images and add maker pins of posts to this images. If the user hover over the image maker a popover will display information of th post.
-You can decide what should be displayed in the popover and have full control over the template.
+### Like google places pins on maps or Facebook tagging.
+We use this technique for image to post or even image to image relationships. If the user clicks on an image maker a popover gets displayed with information of the post. You can decide what should be displayed in the popover and have full control over the template.
 
-### Its like Facebook People Tagging just for any Image.
+### Example
 We have build it for a customer in need of a tagging feature for tuning parts. They have a car community and want to enable there users to tag there tuning parts on the car images.
 
+You could use it to create interactive stories like a journals. Display relevant post to a images.
 
-You could use it to create interactive story a journals. Display relevant story to a Image or Products. IUts a powerfull tool for new and itutive desigsn not exist in wordpress like this before.
+### A powerful tool for new and intuitive design and user experiences
+
+---
+
+### Use Multiple Forms for different Pins Types
+Create Multiple forms for different Pins
+
+---
 
 ### BuddyForms Hook Fields Support
 You can use the BuddyForms Hook Fields extension to hook your galery into the single view of your posts
 
+---
+
 ### Template Tags Support
 Use buddyforms_easypin_gallery(); as template tag anywhere in your single template
 
+---
 
 We are exited to see what you are doing with BuddyForms Easy Pin. Please let us know ;) just write us a message!
 
@@ -65,6 +76,17 @@ Easy Pin in Action [youtube https://www.youtube.com/watch?v=Me-2MJMInYc]
 form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
 
 ---
+
+== Frequently Asked Questions ==
+
+= Dependencies =
+[BuddyForms](https://wordpress.org/plugins/buddyforms/) Form Builder
+[BuddyForms Hierarchical Posts](https://wordpress.org/plugins/buddyforms/) for the image to post relation
+
+
+== Screenshots ==
+
+1 ...
 
 == Installation ==
 
