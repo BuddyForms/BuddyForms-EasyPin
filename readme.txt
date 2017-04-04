@@ -1,6 +1,6 @@
-=== Form Builder & Front End Editor BuddyForms ===
+=== BuddyForms EasyPin ===
 Contributors: svenl77, themekraft, buddyforms
-Tags: easypin, maker,image marker, gallery, image galelry, image relation, hierarchically
+Tags: easypin, maker, image marker, gallery, image galelry, image relation, hierarchically
 Requires at least: 3.9
 Tested up to: 4.7.3
 Stable tag: 1.0
@@ -26,6 +26,9 @@ You could use it to create interactive story a journals. Display relevant story 
 
 ### BuddyForms Hook Fields Support
 You can use the BuddyForms Hook Fields extension to hook your galery into the single view of your posts
+
+### Template Tags Support
+Use buddyforms_easypin_gallery(); as template tag anywhere in your single template
 
 
 We are exited to see what you are doing with BuddyForms Easy Pin. Please let us know ;) just write us a message!

@@ -3,8 +3,8 @@
 /**
  * Plugin Name: BuddyForms EasyPin
  * Plugin URI:  https://themekraft.com/buddyforms/
- * Description: Pin your posts
- * Version: 0.1
+ * Description: Pin your posts on images
+ * Version: 1.0
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/buddyforms/
  * Licence: GPLv3
@@ -56,7 +56,7 @@ class BuddyForms_EasyPin {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 		// Load the EasyPin js
-		add_action( 'wp_enqueue_scripts', array( $this, 'front_js' ), 99999, 1 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'front_js' ), 10, 1 );
 
 	}
 
