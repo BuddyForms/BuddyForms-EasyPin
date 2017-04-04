@@ -1,37 +1,30 @@
 === Form Builder & Front End Editor BuddyForms ===
 Contributors: svenl77, themekraft, buddyforms
-Tags:
+Tags: easypin, maker,image marker, gallery, image galelry, image relation, hierarchically
 Requires at least: 3.9
 Tested up to: 4.7.3
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-BuddyForms EasyPin
+Visualise your stories. Add posts as marker to images and enable your users to link from images to posts in a fancy way.
 
 == Description ==
 
-visualise your stories
+With BuddyForms EasyPin you are able to create a nice user experiences. Add Maker to images and link to relevant posts.
 
-Add Posts as Marker to Images and enable your BuddyForms users to link from images to posts in a fancy way.
+### Like Child and Parent Posts. Child and Parent Images.
 
-With BuddyForms easyPin you are able to create a nice user experiences. Mark Parts on an image and link it to relevant posts.
+Create a Gallery of images and add maker pins of posts to this images. If the user hover over the image maker a popover will display information of th post.
+You can decide what should be displayed in the popover and have full control over the template.
 
-
-Like Child and Parent Posts. Child and Parent Images.
-
-
-
-
-We have created this extension to allow our customer to pin tuning parts on a image of a car.
-
-Its like Facebook People taging just for everything.
-
-Or like Google mapos for Images and Posts.
-
-you could use it to create an interactive story a journals. Make your blog atractive and bring relevant posts together .
+### Its like Facebook People Tagging just for any Image.
+We have build it for a customer in need of a tagging feature for tuning parts. They have a car community and want to enable there users to tag there tuning parts on the car images.
 
 
+You could use it to create interactive story a journals. Display relevant story to a Image or Products. IUts a powerfull tool for new and itutive desigsn not exist in wordpress like this before.
+
+We are exited to see what you are doing with BuddyForms Easy Pin. Please let us know ;) just write us a message!
 
 ---
 
@@ -52,11 +45,6 @@ Easy Pin in Action [youtube https://www.youtube.com/watch?v=Me-2MJMInYc]
 
 ---
 
-> #### Demo Site
-> * Feel free to test BuddyForms on our Demo Site: [BuddyForms Demo](https://addendio.com/try-plugin/?slug=buddyforms)
-
----
-
 > #### Follow Us
 > [Blog](https://themekraft.com/blog/) | [Twitter](https://twitter.com/buddyforms) | [Facebook](https://www.facebook.com/buddyforms/) | [Google+](https://plus.google.com/u/0/b/100975390423636463712/?pageId=100975390423636463712) | [YouTube](https://www.youtube.com/playlist?list=PLYPguOC5yk7_aB2Q2FTaktqHCXDc_mzqb)
 
@@ -73,7 +61,7 @@ form, forms, frontend forms, contact form, contact forms, content form, post for
 
 == Installation ==
 
-Upload the entire BuddyForms folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
+Upload the entire folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
 Activate the plugin through the 'Plugins' menu in WordPress.
 Head to the 'BuddyForms' menu item in your admin sidebar
 
@@ -92,4 +80,4 @@ coming soon
 == Changelog ==
 
 
-= 1.0 - 00.00.2017 =
+= 1.0 - 04.04.2017 =
