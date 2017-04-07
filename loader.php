@@ -223,8 +223,10 @@ function be_fs() {
 			// Try to load SDK from premium parent plugin folder.
 			require_once dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php';
 		} else {
-			require_once dirname(__FILE__) . 'includes/resources/freemius/start.php';
+			require_once dirname(__FILE__) . '/includes/resources/freemius/start.php';
 		}
+
+		$first_path = get_option( 'buddyforms_first_path_after_install' );
 
 		$be_fs = fs_dynamic_init( array(
 			'id'                  => '960',
@@ -240,7 +242,8 @@ function be_fs() {
 				'name'       => 'BuddyForms',
 			),
 			'menu'                => array(
-				'first-path'     => 'edit.php?post_type=buddyforms&page=buddyforms_welcome_screen',
+				'slug'           => 'edit.php?post_type=buddyforms',
+				'first-path'     => $first_path,
 				'support'        => false,
 			),
 		) );
