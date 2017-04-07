@@ -3,11 +3,11 @@ Contributors: svenl77, themekraft, buddyforms
 Tags: easypin, maker, image marker, gallery, image gallery, image relation, hierarchically
 Requires at least: 3.9
 Tested up to: 4.7.3
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Visualise your stories. Add posts as marker to images and enable your users to link from images to posts in a fancy way.
+Visualize your stories. Add posts as marker to images and enable your users to link from images to posts in a fancy way.
 
 == Description ==
 
@@ -101,6 +101,10 @@ Head to the 'BuddyForms' menu item in your admin sidebar
 3. Form Element EasyPin Template
 
 == Changelog ==
+
+= 1.0.1 - 07.04.2017 =
+* integrate freemius
+* smaller changes
 
 = 1.0 - 07.04.2017 =
 first version
