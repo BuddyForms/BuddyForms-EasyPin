@@ -11,13 +11,13 @@ Visualise your stories. Add posts as marker to images and enable your users to l
 
 == Description ==
 
-### Add Maker to images and link to relevant posts
-Like Child and Parent Posts. Child and Parent Images. Create a Gallery of images and add related posts to this images as pins.
+### Add Maker to Images and Link to relevant Posts
+Like child and parent posts. Child and parent images. Create a gallery of images and add related posts to this images as pins.
 
 ---
 
-### Like google places pins on maps or Facebook tagging.
-We use this technique for images to posts or even images to images relationships. If the user clicks on an image pin a popover gets displayed with information of the post. You can decide what should be displayed in the popover and have full control over the template.
+### Like Google Places Pins on Maps or Facebook Tagging
+We use this technique for images to posts or images to images relationships. If the user clicks on an image pin a popover gets displayed with information of the pined post. You can decide what should be displayed in the popover and have full control over the template.
 
 ---
 
@@ -27,17 +27,17 @@ We have build it for a customer in need of a tagging feature for tuning parts. T
 ---
 
 ### A powerful tool for new and intuitive design and user experiences
-You could use it to create interactive stories like a journals and display relevant post to the images.
+Use it to create interactive stories like a journals and display relevant posts to the images.
 
 ---
 
 ### Use Multiple Forms for different Pins Types
-Create Multiple forms for different Pins and enable your authors to only fill out the form elements needed for there particular pined post
+Create Multiple forms for different pins and enable your authors to only fill out the form elements needed for there particular pined post
 
 ---
 
 ### BuddyForms Hook Fields Support
-You can use the BuddyForms Hook Fields extension to hook your gallery into the single view of your posts
+You can use the "BuddyForms Hook Fields" extension to hook your gallery into the single view of your posts
 
 ---
 
@@ -46,7 +46,12 @@ Use buddyforms_easypin_gallery() as template tag anywhere in your single templat
 
 ---
 
-We are exited to see what you are doing with BuddyForms Easy Pin. Please let us know ;) just write us a message!
+### Video
+<h4>See EasyPin in Action</h4> [youtube https://www.youtube.com/watch?v=mTfCJBFIL-g&feature=youtu.be]
+
+---
+
+We are exited to see what you are building with BuddyForms Easy Pin. Please let us know ;) just write us a message!
 
 ---
 
@@ -91,7 +96,9 @@ Head to the 'BuddyForms' menu item in your admin sidebar
 > * If you still get stuck somewhere, our support gets you back on the right track. You can find all help buttons in your BuddyForms Settings Panel in your WP Dashboard and the Help Center!
 
 == Screenshots ==
-coming soon
+1. Pin Posts to Images
+2. Form Element General Settings
+3. Form Element EasyPin Template
 
 == Changelog ==
 

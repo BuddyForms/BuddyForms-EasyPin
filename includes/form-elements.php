@@ -68,7 +68,7 @@ function buddyforms_easypin_create_new_form_builder_form_element( $form_fields, 
 
 			$easypin_template = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['easypin_template'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['easypin_template'] : '
 <h1>{[title]}</h1>
-<div class="popHeadLine">interresant</div>
+<div class="popHeadLine"></div>
 <div class="popContentLeft">
     {[description]}
     <br><br><br>
