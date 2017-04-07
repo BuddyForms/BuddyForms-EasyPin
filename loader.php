@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: BuddyForms EasyPin
- * Plugin URI:  https://themekraft.com/buddyforms/
+ * Plugin URI:  https://themekraft.com/products/buddyforms-easypin/
  * Description: Pin your posts on images
  * Version: 1.0
  * Author: ThemeKraft

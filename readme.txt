@@ -12,43 +12,41 @@ Visualise your stories. Add posts as marker to images and enable your users to l
 == Description ==
 
 ### Add Maker to images and link to relevant posts
-
 Like Child and Parent Posts. Child and Parent Images. Create a Gallery of images and add related posts to this images as pins.
 
+---
+
 ### Like google places pins on maps or Facebook tagging.
-We use this technique for image to post or even image to image relationships. If the user clicks on an image maker a popover gets displayed with information of the post. You can decide what should be displayed in the popover and have full control over the template.
+We use this technique for images to posts or even images to images relationships. If the user clicks on an image pin a popover gets displayed with information of the post. You can decide what should be displayed in the popover and have full control over the template.
+
+---
 
 ### Example
 We have build it for a customer in need of a tagging feature for tuning parts. They have a car community and want to enable there users to tag there tuning parts on the car images.
 
-You could use it to create interactive stories like a journals. Display relevant post to a images.
+---
 
 ### A powerful tool for new and intuitive design and user experiences
+You could use it to create interactive stories like a journals and display relevant post to the images.
 
 ---
 
 ### Use Multiple Forms for different Pins Types
-Create Multiple forms for different Pins
+Create Multiple forms for different Pins and enable your authors to only fill out the form elements needed for there particular pined post
 
 ---
 
 ### BuddyForms Hook Fields Support
-You can use the BuddyForms Hook Fields extension to hook your galery into the single view of your posts
+You can use the BuddyForms Hook Fields extension to hook your gallery into the single view of your posts
 
 ---
 
 ### Template Tags Support
-Use buddyforms_easypin_gallery(); as template tag anywhere in your single template
+Use buddyforms_easypin_gallery() as template tag anywhere in your single template
 
 ---
 
 We are exited to see what you are doing with BuddyForms Easy Pin. Please let us know ;) just write us a message!
-
----
-
-<h4>Videos</h4>
-
-Easy Pin in Action [youtube https://www.youtube.com/watch?v=Me-2MJMInYc]
 
 ---
 
@@ -70,23 +68,12 @@ Easy Pin in Action [youtube https://www.youtube.com/watch?v=Me-2MJMInYc]
 
 > **Powered with ❤ by [ThemeKraft](https://themekraft.com)**
 
----
-
-#### Tags
-form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
-
----
 
 == Frequently Asked Questions ==
 
 = Dependencies =
 [BuddyForms](https://wordpress.org/plugins/buddyforms/) Form Builder
 [BuddyForms Hierarchical Posts](https://wordpress.org/plugins/buddyforms/) for the image to post relation
-
-
-== Screenshots ==
-
-1 ...
 
 == Installation ==
 
@@ -108,6 +95,5 @@ coming soon
 
 == Changelog ==
 
-
-= 1.0 - 04.04.2017 =
+= 1.0 - 07.04.2017 =
 first version
