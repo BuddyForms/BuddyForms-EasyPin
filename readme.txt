@@ -11,38 +11,38 @@ Visualize your stories. Add posts as marker to images and enable your users to l
 
 == Description ==
 
-### Add Maker to Images and Link to relevant Posts
-Like child and parent posts. Child and parent images. Create a gallery of images and add related posts to this images as pins.
+### ADD MARKER TO IMAGES AND LINK TO RELEVANT POSTS TO IT
+Simply create a gallery of images and add related posts to this images as pins.
 
 ---
 
-### Like Google Places Pins on Maps or Facebook Tagging
-We use this technique for images to posts or images to images relationships. If the user clicks on an image pin a popover gets displayed with information of the pined post. You can decide what should be displayed in the popover and have full control over the template.
+### SIMILAR TO GOOGLE PINS ON MAPS OR FACEBOOK TAGGING PEOPLE AND PLACES
+We use this technique creating relationships between images to posts or images to images. Meaning, if the user clicks on an image pin a popover gets displayed with a short information of the pinned post. The best is - you can decide what should be displayed in the popover and have full control over the template.
 
 ---
 
-### Example
-We have build it for a customer in need of a tagging feature for tuning parts. They have a car community and want to enable there users to tag there tuning parts on the car images.
+### USE CASE EXAMPLE
+One of our clients has a car community and they were in need of a tagging feature that allows their community members tagging pictures of tuning parts. With this plugin they are now able to engage directly on the image.
 
 ---
 
-### A powerful tool for new and intuitive design and user experiences
+### A POWERFUL TOOL FOR NEW AND INTUITIVE DESIGN AND USER EXPERIENCES
 Use it to create interactive stories like a journals and display relevant posts to the images.
 
 ---
 
-### Use Multiple Forms for different Pins Types
-Create Multiple forms for different pins and enable your authors to only fill out the form elements needed for there particular pined post
+### USE MULTIPLE FORMS FOR DIFFERENT PIN TYPES
+Create Multiple forms for different pins and enable your authors/ community members to only fill out the form elements needed for their particular pined post.
 
 ---
 
-### BuddyForms Hook Fields Support
-You can use the "BuddyForms Hook Fields" extension to hook your gallery into the single view of your posts
+### BUDDYFORMS HOOK FIELDS SUPPORT
+You can use the “BuddyForms Hook Fields” extension to hook your gallery into the single view of your posts.
 
 ---
 
-### Template Tags Support
-Use buddyforms_easypin_gallery() as template tag anywhere in your single template
+### TEMPLATE TAGS SUPPORT
+To all theme developers! Use buddyforms_easypin_gallery() as a ‘template tag’ anywhere in your single template.
 
 ---
 
@@ -51,7 +51,7 @@ Use buddyforms_easypin_gallery() as template tag anywhere in your single templat
 
 ---
 
-We are exited to see what you are building with BuddyForms Easy Pin. Please let us know ;) just write us a message!
+We are excited to see what you are building with BuddyForms Easy Pin. Please let us know. Just write us a message!
 
 ---
 
