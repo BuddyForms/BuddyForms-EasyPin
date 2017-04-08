@@ -7,7 +7,7 @@ Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Visualize your stories. Add posts as marker to images and enable your users to link from images to posts in a fancy way.
+Visualize your stories by pinning posts to images.
 
 == Description ==
 
