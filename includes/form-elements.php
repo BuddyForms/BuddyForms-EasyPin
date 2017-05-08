@@ -176,7 +176,7 @@ function buddyforms_easypin_create_frontend_form_element( $form, $form_args ) {
 				$str .= '</span>';
 
 				$str .= '</div><span class="help-inline">';
-				$str .= $description;
+				$str .= empty($description) ? '' : $description;
 				$str .= '</span>';
 
 				$form->addElement( new Element_HTML( '<div class="bf_field_group"><label for="_' . $slug . '">' ) );
